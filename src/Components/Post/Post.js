@@ -6,7 +6,11 @@ import './Post.scss';
 class Post extends Component {
 
     formatContent = (content) => {
-        return decodeURI(content);
+        try {
+            return decodeURI(content); 
+        } catch (error) {
+            console.log(error, content);
+        }
     }
 
     formatDate = (date) => {

@@ -4,13 +4,17 @@ import env from './env.js';
 
 let {API_URL} = env;
 let paginatedPostsEndpoint = "/post/get/paginated?page=";
+let postCountEndpoint = '/post/count';
 
 export const getPaginatedPosts = (page = 0) => {
     if(page === "") {
       page = 0;
     }
-    console.log(API_URL + paginatedPostsEndpoint + page);
     return sendGet(API_URL + paginatedPostsEndpoint + page)
+}
+
+export const getPostCount = () => {
+  return sendGet(API_URL + postCountEndpoint);
 }
 
 const sendGet = async (path, options) => {

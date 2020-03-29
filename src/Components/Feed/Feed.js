@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Post from '../Post/Post.js';
+import Pagination from '../Pagination/Pagination.js';
 import {getPaginatedPosts} from '../../Utilities/PostUtilities.js';
 
 import './Feed.scss';
@@ -46,10 +47,11 @@ class Feed extends Component {
     };
 
     render() {
-        let { posts } = this.state;
+        let { posts, page } = this.state;
         return (
             <section className="feed container">
                 {this.buildFeedPosts(posts)}
+                <Pagination page={page} />
             </section>
         )
     }
