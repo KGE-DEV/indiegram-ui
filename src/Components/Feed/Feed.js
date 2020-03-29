@@ -44,10 +44,11 @@ class Feed extends Component {
         var results = regex.exec(window.location.search);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
+
     render() {
         let { posts } = this.state;
         return (
-            <section className="Feed container">
+            <section className="feed container">
                 {this.buildFeedPosts(posts)}
             </section>
         )
