@@ -1,0 +1,27 @@
+.post {
+    border-radius: 3px;
+    border: 1px solid #dbdbdb;
+    border: 1px solid rgba(var(--b6a,219,219,219),1);
+    margin: 0 0 20px;
+    background-color: #fff;
+    width: 100%;
+
+    &__image {
+        max-width: 500px;
+        width: 100%;
+    }
+
+    &__content-cont {
+        padding: 10px;
+    }
+
+    &__content, &__date {
+        margin: 0;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    &__content {
+        margin: 5px 0 0;
+        font-weight: 300;
+    }
+}

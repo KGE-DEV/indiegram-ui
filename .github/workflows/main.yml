@@ -26,7 +26,7 @@ jobs:
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         LOCAL_DIR: ./
-        REMOTE_DIR: ./wp-content/themes/fabulist/elsiegram-ui
+        REMOTE_DIR: ./elsiegram-ui
         METHOD: sftp
         PORT: 221
         ARGS: --delete
