@@ -17,7 +17,7 @@ export const getPostCount = () => {
   return sendGet(API_URL + postCountEndpoint);
 }
 
-const sendGet = async (path, options) => {
+export const sendGet = async (path, options) => {
     return Axios.get(path, options)
       .catch(err => {
         return {"error": err.response, "success": false}
@@ -31,7 +31,7 @@ const sendGet = async (path, options) => {
       });
   }
   
-  const sendPost = async (path, data, headers) => {
+  export const sendPost = async (path, data, headers) => {
     return await Axios.post(path, data, headers)
       .catch(err => {
         return {"error" : err.response, "success": false}
