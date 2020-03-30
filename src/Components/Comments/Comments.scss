@@ -1,0 +1,37 @@
+.comments {
+    font-family: 'Montserrat', sans-serif;
+
+    &__comment {
+        margin: 0;
+        word-break: break-all;
+    }
+
+    &__new-comment {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    &__new-comment-input,  &__new-comment-input:focus{
+        width: 100%;
+        border: grey 1px;
+        border-bottom: none;
+        outline: none;
+        padding: 0 45px 0 10px;
+        box-sizing: border-box;
+        height: 45px;
+        resize: none;
+    }
+
+    &__add-comment {
+        position: absolute;
+        bottom: 15px;
+        right: 5px;
+        border: 1px solid #1398d5;
+        background: #fff;
+        border-radius: 5px;
+        padding: 5px;
+        color: #1398d5;
+    }
+}

@@ -34,7 +34,7 @@ class Feed extends Component {
         }
         return (
             posts.map(post => {
-                return <Post key={post.id} post_content={post.post_content} post_image_url={post.post_image_url} date_time_added={post.date_time_added} />
+                return <Post key={post.id} post_id={post.id} post_content={post.post_content} post_image_url={post.post_image_url} date_time_added={post.date_time_added} />
             })
         )
     }
