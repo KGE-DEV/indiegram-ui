@@ -32,7 +32,6 @@ export const sendGet = async (path, options) => {
   }
   
   export const sendPost = async (path, data, headers) => {
-    console.log(headers)
     return await Axios.post(path, data, headers)
       .catch(err => {
         return {"error" : err.response, "success": false}

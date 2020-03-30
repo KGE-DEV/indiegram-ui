@@ -10,7 +10,8 @@ class Comments extends Component {
         super(props);
 
         this.state = {
-            comments: null
+            comments: null,
+            countOfUpdatedComments: 0
         }
     }
 
@@ -27,6 +28,18 @@ class Comments extends Component {
         return comments.map(comment => {
             return <p className="comments__comment" key={comment.id}><b className="comments__name" >{comment.name} </b>{comment.comment}</p>
         })
+    }
+
+    componentDidUpdate() {
+        if(this.props.newComments > this.state.countOfUpdatedComments) {
+            Promise.resolve(getCommentsPreview(this.props.post_id))
+            .then(data => {
+                this.setState({
+                    comments: data.data.comments,
+                    countOfUpdatedComments: this.state.countOfUpdatedComments + 1
+                })
+            })
+        }
     }
 
     render() {
