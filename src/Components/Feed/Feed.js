@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Post from '../Post/Post.js';
 import Pagination from '../Pagination/Pagination.js';
+import Loading from '../Loading/Loading.js';
 import {getPaginatedPosts} from '../../Utilities/PostUtilities.js';
 
 import './Feed.scss';
@@ -48,6 +49,9 @@ class Feed extends Component {
 
     render() {
         let { posts, page } = this.state;
+        if(posts.length === 0) {
+            return <Loading />
+        }
         return (
             <section className="feed container">
                 {this.buildFeedPosts(posts)}
