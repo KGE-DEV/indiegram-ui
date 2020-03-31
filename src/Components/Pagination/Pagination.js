@@ -74,7 +74,7 @@ class Pagination extends Component {
         if(direction === "back") {
             pageDestination = currentPage - 1;
         }
-        window.location.href = "/?page=" + pageDestination;
+        window.location.href = window.location.pathname + "?posts_page=" + pageDestination;
     }
 
     render() {

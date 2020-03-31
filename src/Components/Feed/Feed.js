@@ -19,7 +19,7 @@ class Feed extends Component {
     }
 
     componentDidMount() {
-        let page = this.getUrlParameter("page");
+        let page = this.getUrlParameter("posts_page");
         Promise.resolve(getPaginatedPosts(page))
             .then(data => {
                 this.setState({
