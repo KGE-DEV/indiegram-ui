@@ -1,4 +1,4 @@
-import {sendGet, sendPost} from './PostUtilities.js';
+import {sendGet, sendPost} from './DataUtilities.js';
 
 import env from './env.js';
 
