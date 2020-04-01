@@ -4,6 +4,7 @@ import Post from '../Post/Post.js';
 import Pagination from '../Pagination/Pagination.js';
 import Loading from '../Loading/Loading.js';
 import {getPaginatedPosts} from '../../Utilities/PostUtilities.js';
+import {getUserRole} from '../../Utilities/UserUtilites.js';
 
 import './Feed.scss';
 
@@ -14,7 +15,8 @@ class Feed extends Component {
 
         this.state = {
             posts: [],
-            page: 0
+            page: 0,
+            userRole: "subscriber"
         }
     }
 
@@ -25,6 +27,12 @@ class Feed extends Component {
                 this.setState({
                     page,
                     posts: data.data.posts
+                })
+            })
+        Promise.resolve(getUserRole())
+            .then(data => {
+                this.setState({
+                    userRole: data.data.role
                 })
             })
     }
@@ -48,12 +56,14 @@ class Feed extends Component {
     };
 
     render() {
-        let { posts, page } = this.state;
+        let { posts, page, userRole } = this.state;
         if(posts.length === 0) {
             return <Loading />
         }
         return (
             <section className="feed container">
+                {userRole === "admin" ? <a className="add-post-button"href="/add-post">Add Post</a> : null}
+                
                 {this.buildFeedPosts(posts)}
                 <Pagination page={page} />
             </section>

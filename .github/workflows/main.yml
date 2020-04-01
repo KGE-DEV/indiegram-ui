@@ -16,7 +16,7 @@ jobs:
       with:
         node-version: '12.x'
         
-    - name: List output files
+    - name: Build project and list output files
       run: npm i && yarn build && ls
       
     - name: FTP-Deploy-Action
@@ -25,7 +25,7 @@ jobs:
         FTP_SERVER: ${{ secrets.FTP_SERVER }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        LOCAL_DIR: ./
+        LOCAL_DIR: ./build
         REMOTE_DIR: ./elsiegram-ui
         METHOD: sftp
         PORT: 221
