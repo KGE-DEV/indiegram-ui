@@ -11,6 +11,6 @@ export const getCommentsPreview = (post_id) => {
 }
 
 export const postComment = (commentData) => {
-    let headers = { 'Content-Type': '"application/json"' }
+    let headers = { 'Content-Type': '"application/json"', withCredentials: true }
     return sendPost(API_URL + postCommentEndpoint, commentData, headers);
 }
