@@ -18,10 +18,13 @@ export const getPostCount = () => {
 }
 
 export const sendGet = async (path, options) => {
-    return Axios.get(path, options)
-      .catch(err => {
-        return {"error": err.response, "success": false}
-      });
+  if(options === undefined) {
+    options = {withCredentials: true, mode: 'no-cors',};
+  }
+  return Axios.get(path, options)
+    .catch(err => {
+      return {"error": err.response, "success": false}
+    });
   }
   
   const sendPut = async (path, data, options) => {
@@ -32,6 +35,9 @@ export const sendGet = async (path, options) => {
   }
   
   export const sendPost = async (path, data, headers) => {
+    if(headers === undefined) {
+      headers = {withCredentials: true, mode: 'no-cors',};
+    }
     return await Axios.post(path, data, headers)
       .catch(err => {
         return {"error" : err.response, "success": false}
@@ -39,6 +45,9 @@ export const sendGet = async (path, options) => {
   }
   
   const sendDelete = async (path, options) => {
+    if(options === undefined) {
+      options = {withCredentials: true};
+    }
     return await Axios.delete(path, options)
       .catch(err => {
         return {"error" : err.response, "success": false}
