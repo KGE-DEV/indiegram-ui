@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
@@ -31,7 +32,7 @@ class Pagination extends Component {
         let totalPages = Math.ceil(count / 10);
         let boxes = [];
         if(page > 1) {
-            boxes.push(<div className="pagination__box" key="back" onClick={() => {this.handleBoxClick(null, "back")}}><FontAwesomeIcon key="forward" icon={faChevronLeft} /></div>)
+            boxes.push(<Link to={this.getPageDestination(null, "back")} key="back"><div className="pagination__box"><FontAwesomeIcon key="forward" icon={faChevronLeft} /></div></Link>)
         }
         let maxBoxes = totalPages > 5 ? 5 : totalPages;
         let startingBox = totalPages < 6 ? 1 : page - 2;
@@ -52,19 +53,19 @@ class Pagination extends Component {
             if(i === page) {
                 boxes.push(<div className="pagination__box active" key={i}>{i} </div>);
             } else if (i === endingBox) {
-                boxes.push(<div className="pagination__box" key={totalPages} onClick={() => {this.handleBoxClick(totalPages, null)}}>{totalPages} </div>)
+                boxes.push(<Link to={this.getPageDestination(totalPages, null)} key={totalPages}><div className="pagination__box">{totalPages} </div></Link>)
             } else {
-                boxes.push(<div className="pagination__box" key={i} onClick={() => {this.handleBoxClick(i, null)}}>{i} </div>)
+                boxes.push(<Link to={this.getPageDestination(i, null)} key={i}><div className="pagination__box">{i}</div></Link>)
             }
             
         }
         if(page < totalPages) {
-            boxes.push(<div className="pagination__box" key="forward" onClick={() => {this.handleBoxClick(null, "forward")}}><FontAwesomeIcon icon={faChevronRight} /></div>)
+            boxes.push(<Link to={this.getPageDestination(null, "forward")} key="forward"><div className="pagination__box"><FontAwesomeIcon icon={faChevronRight} /></div></Link>)
         }
         return boxes;
     }
 
-    handleBoxClick = (page, direction) => {
+    getPageDestination = (page, direction) => {
         let currentPage = parseInt(this.props.page);
         let pageDestination = parseInt(page);
         if(direction === "forward") {
@@ -74,7 +75,7 @@ class Pagination extends Component {
         if(direction === "back") {
             pageDestination = currentPage - 1;
         }
-        window.location.href = window.location.pathname + "?posts_page=" + pageDestination;
+        return "/feed/" + pageDestination;
     }
 
     render() {

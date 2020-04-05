@@ -15,17 +15,14 @@ class Feed extends Component {
 
         this.state = {
             posts: [],
-            page: 0,
             userRole: "subscriber"
         }
     }
 
     componentDidMount() {
-        let page = this.getUrlParameter("posts_page");
-        Promise.resolve(getPaginatedPosts(page))
+        Promise.resolve(getPaginatedPosts(this.props.page))
             .then(data => {
                 this.setState({
-                    page,
                     posts: data.data.posts
                 })
             })
@@ -35,6 +32,19 @@ class Feed extends Component {
                     userRole: data.data.role
                 })
             })
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log(prevProps, this.props);
+        if(this.props.page !== prevProps.page) {
+            Promise.resolve(getPaginatedPosts(this.props.page))
+            .then(data => {
+                this.setState({
+                    posts: data.data.posts
+                })
+            })
+            window.scrollTo(0,0)
+        }
     }
 
     buildFeedPosts(posts) {
@@ -56,7 +66,8 @@ class Feed extends Component {
     };
 
     render() {
-        let { posts, page, userRole } = this.state;
+        let { posts, userRole } = this.state;
+        let { page } = this.props;
         if(posts.length === 0) {
             return <Loading />
         }
