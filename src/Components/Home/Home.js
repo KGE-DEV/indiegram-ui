@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 import "./Home.scss";
 
 class Home extends Component {
     render() {
+        let {userRole} = this.props;
+        if(userRole && userRole !== "unauthorized") {
+            return <Redirect to="/feed/1" />;
+        }
         return (
             <div className="container home">
                 <p className="home__link">

@@ -6,6 +6,7 @@ import Header from './Components/Header/Header.js';
 import FeedContainer from './Components/Feed/FeedContainer.js';
 import Home from './Components/Home/Home.js';
 import Invite from './Components/Invite/Invite.js';
+import Login from './Components/Login/Login.js';
 import Footer from './Components/Footer/Footer.js';
 
 import {getUserRole} from './Utilities/UserUtilites.js';
@@ -16,11 +17,26 @@ class App extends Component {
     super(props);
 
     this.state = {
-      userRole: "subscriber"
+      userRole: "unauthorized"
     }
   }
 
   componentDidMount() {
+    Promise.resolve(getUserRole())
+    .then(data => {
+      if(data.error) {
+        this.setState({
+          userRole: "unauthorized"
+        })
+      } else {
+        this.setState({
+          userRole: data.data.role
+      })
+      }
+    })
+  }
+
+  updateUserRole = () => {
     Promise.resolve(getUserRole())
     .then(data => {
       if(data.error) {
@@ -43,8 +59,9 @@ class App extends Component {
           <Header />
           <Switch>
             <Route path="/feed/:page" exact render={(props) => <FeedContainer {...props} userRole={userRole} />}/>
-            <Route path="/invite" exact component={Invite} />
-            <Route path="/" exact component={Home} />
+            <Route path="/invite" exact render={(props) => <Invite {...props} userRole={userRole} />} />
+            <Route path="/login" exact render={(props) => <Login {...props} userRole={userRole} updateUserRole={this.updateUserRole} />} />
+            <Route path="/" exact render={(props) => <Home {...props} userRole={userRole} />} />
           </Switch>
           <Footer />
         </BrowserRouter>

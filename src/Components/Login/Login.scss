@@ -1,4 +1,4 @@
-.invite {
+.login {
     font-family: 'Montserrat', sans-serif;
     &__header {
         font-size: 40px;
@@ -40,6 +40,12 @@
     &__success-subheader {
         text-align: center;
         padding: 10px;
+        font-size: 20px;
+    }
+
+    &__error {
+        text-align: center;
+        color: red;
         font-size: 20px;
     }
 }
