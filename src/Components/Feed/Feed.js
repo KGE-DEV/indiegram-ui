@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 
 import Post from '../Post/Post.js';
 import Pagination from '../Pagination/Pagination.js';
 import Loading from '../Loading/Loading.js';
 import {getPaginatedPosts} from '../../Utilities/PostUtilities.js';
-import {getUserRole} from '../../Utilities/UserUtilites.js';
 
 import './Feed.scss';
 
@@ -14,28 +14,25 @@ class Feed extends Component {
         super(props);
 
         this.state = {
-            posts: [],
-            userRole: "subscriber"
+            posts: []
         }
     }
 
     componentDidMount() {
         Promise.resolve(getPaginatedPosts(this.props.page))
             .then(data => {
-                this.setState({
-                    posts: data.data.posts
-                })
-            })
-        Promise.resolve(getUserRole())
-            .then(data => {
-                this.setState({
-                    userRole: data.data.role
-                })
+                if(data.error) {
+                    // do nothing
+                    // user is unauthorized and is handled by userRole
+                } else {
+                    this.setState({
+                        posts: data.data.posts
+                    })
+                }
             })
     }
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps, this.props);
         if(this.props.page !== prevProps.page) {
             Promise.resolve(getPaginatedPosts(this.props.page))
             .then(data => {
@@ -66,8 +63,11 @@ class Feed extends Component {
     };
 
     render() {
-        let { posts, userRole } = this.state;
-        let { page } = this.props;
+        let {posts} = this.state;
+        let {userRole, page} = this.props;
+        if(userRole === "unauthorized") {
+            return <Redirect to="/" />
+        }
         if(posts.length === 0) {
             return <Loading />
         }

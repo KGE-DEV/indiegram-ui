@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 
 import Feed from './Feed.js';
 
-export default function FeedContainer() {
+export default function FeedContainer(props) {
     let {page} = useParams();
-    return <Feed page={page} />
+    return <Feed page={page} userRole={props.userRole}/>
 }
