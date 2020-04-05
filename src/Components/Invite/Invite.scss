@@ -1,0 +1,44 @@
+.invite {
+    &__header {
+        font-size: 40px;
+        text-align: center;
+        margin: 0 0 60px;
+    }
+    
+    &__label {
+        display: block;
+        text-align: center;
+        font-size: 30px;
+        color: #555;
+    }
+    
+    &__input {
+        width: 90%;
+        padding: 10px 20px;
+        font-size: 20px;
+        margin: 20px auto;
+        box-sizing: border-box;
+        display: block;
+    }
+    
+    &__submit {
+        width: 90%;
+        margin: 33px auto;
+        display: block;
+        padding: 20px;
+        font-size: 20px;
+        background-color: #1398d5;
+        color: #ffff;
+    }
+    
+    &__success-header {
+        text-align: center;
+        font-size: 50px;
+    }
+    
+    &__success-subheader {
+        text-align: center;
+        padding: 10px;
+        font-size: 20px;
+    }
+}

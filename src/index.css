@@ -24,3 +24,13 @@ body {
     padding: 5px 10px;
     cursor: pointer;
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.input-error {
+    border: solid 2px red!important;
+    box-sizing: border-box;
+}
