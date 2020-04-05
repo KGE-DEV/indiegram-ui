@@ -1,9 +1,9 @@
-import {sendGet, sendPost} from './DataUtilities.js';
+import {sendGet} from './DataUtilities.js';
 
 import env from './env.js';
 
 let {API_URL} = env;
-let paginatedPostsEndpoint = "/post/get/paginated?page=";
+let paginatedPostsEndpoint = "/post/get/paginated/";
 let postCountEndpoint = "/post/count";
 
 export const getPaginatedPosts = (page = 0) => {
