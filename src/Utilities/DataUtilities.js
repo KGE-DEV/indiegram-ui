@@ -19,7 +19,7 @@ export const sendPut = async (path, data, options) => {
     
 export const sendPost = async (path, data, headers) => {
     if(headers === undefined) {
-    headers = {withCredentials: true, mode: 'no-cors',};
+    headers = {withCredentials: true, mode: 'no-cors'};
     }
     return await Axios.post(path, data, headers)
     .catch(err => {
