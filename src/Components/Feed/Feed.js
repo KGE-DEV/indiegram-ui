@@ -14,26 +14,39 @@ class Feed extends Component {
         super(props);
 
         this.state = {
-            posts: []
+            posts: [],
+            imagesLoaded: 0,
+            postClass: "post hidden",
+            loading: false
         }
     }
 
     componentDidMount() {
-        Promise.resolve(getPaginatedPosts(this.props.page))
+        this.setState({
+            loading: true
+        })
+        if(this.props.userRole !== "unauthorized") {
+            Promise.resolve(getPaginatedPosts(this.props.page))
             .then(data => {
                 if(data.error) {
                     // do nothing
                     // user is unauthorized and is handled by userRole
                 } else {
                     this.setState({
-                        posts: data.data.posts
+                        posts: data.data.posts,
                     })
                 }
             })
+        }
     }
 
     componentDidUpdate(prevProps) {
         if(this.props.page !== prevProps.page) {
+            this.setState({
+                loading: true,
+                postClass: "post hidden",
+                imagesLoaded: 0
+            })
             Promise.resolve(getPaginatedPosts(this.props.page))
             .then(data => {
                 this.setState({
@@ -44,13 +57,24 @@ class Feed extends Component {
         }
     }
 
+    handleImageLoaded = () => {
+        this.setState({ imagesLoaded: this.state.imagesLoaded + 1 }, () => {
+            if(this.state.imagesLoaded === this.state.posts.length) {
+                this.setState({
+                    postClass: "post",
+                    loading: false
+                })
+            }
+        });
+    }
+
     buildFeedPosts(posts) {
         if(posts && posts.length < 1) {
             return null;
         }
         return (
             posts.map(post => {
-                return <Post key={post.id} post_id={post.id} post_content={post.post_content} post_image_url={post.post_image_url} date_time_added={post.date_time_added} />
+                return <Post key={post.id} post_id={post.id} post_content={post.post_content} post_image_url={post.post_image_url} date_time_added={post.date_time_added} handleImageLoaded={this.handleImageLoaded} postClass={this.state.postClass}/>
             })
         )
     }
@@ -63,7 +87,7 @@ class Feed extends Component {
     };
 
     render() {
-        let {posts} = this.state;
+        let {posts, loading} = this.state;
         let {userRole, page} = this.props;
         if(userRole === "unauthorized") {
             return <Redirect to="/" />
@@ -73,10 +97,10 @@ class Feed extends Component {
         }
         return (
             <section className="feed container">
-                {userRole === "admin" ? <Link className="add-post-button" to="/add-post">Add Post</Link> : null}
-                
+                {loading ? <Loading /> : null}
+                {!loading && userRole === "admin" ? <Link className="add-post-button" to="/add-post">Add Post</Link> : null}
                 {this.buildFeedPosts(posts)}
-                <Pagination page={page} />
+                {!loading && <Pagination page={page} />}
             </section>
         )
     }

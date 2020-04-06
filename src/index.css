@@ -34,3 +34,7 @@ a {
     border: solid 2px red!important;
     box-sizing: border-box;
 }
+
+.hidden {
+    display: none;
+}

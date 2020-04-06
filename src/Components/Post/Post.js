@@ -34,10 +34,10 @@ class Post extends Component {
     }
 
     render() {
-        let {post_content, post_image_url, date_time_added, post_id} = this.props;
+        let {post_content, post_image_url, date_time_added, post_id, postClass} = this.props;
         return (
-            <div className="post">
-                <img className="post__image" src={post_image_url} alt="" />
+            <div className={postClass}>
+                <img className="post__image" src={post_image_url} alt="" onLoad={this.props.handleImageLoaded} />
                 <div className="post__content-cont">
                     <p className="post__date">{this.formatDate(date_time_added)}</p>
                     <p className="post__content">{this.formatContent(post_content)}</p>
