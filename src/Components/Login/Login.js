@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 
+import Loading from '../Loading/Loading.js';
 import {sendLoginRequest} from '../../Utilities/UserUtilites.js';
 
 import './Login.scss';
@@ -14,8 +15,8 @@ class Login extends Component {
             email: "",
             password: "",
             action: "ui_login",
-            redirectAfterLogin: false,
-            error: false
+            error: false,
+            loading: false
         }
     }
 
@@ -34,18 +35,21 @@ class Login extends Component {
     }
 
     handleSubmitClick = (evt) => {
+        this.setState({
+            loading: true
+        })
         evt.preventDefault();
         let data = this.state;
         Promise.resolve(sendLoginRequest(data))
             .then(response => {
                 if(response.data.success) {
-                    this.setState({
-                        redirectAfterLogin: true
-                    })
-                    this.props.updateUserRole();
+                    setTimeout(() => {
+                        this.props.updateUserRole();
+                    }, 1500)
                 } else {
                     this.setState({
-                        error: true
+                        error: true,
+                        loading: false
                     })
                 }
             })
@@ -57,10 +61,9 @@ class Login extends Component {
             console.log("redirecting because user role is authorized");
             return <Redirect to="/feed/1" />;
         }
-        let {email, password, redirectAfterLogin, error} = this.state;
-        if(redirectAfterLogin) {
-            console.log("redirecting because login was successfull");
-            return <Redirect to="/feed/1" />;
+        let {email, password, error, loading} = this.state;
+        if(loading) {
+            return <Loading />
         }
         return (
             <div className="container login"> 

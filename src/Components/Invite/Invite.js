@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import Loading from "../Loading/Loading.js";
+
 import {sendInviteRequest} from '../../Utilities/InviteUtilities.js';
 
 import "./Invite.scss";
@@ -16,11 +18,15 @@ class Invite extends Component {
             emailValid: true,
             nameValid: true,
             error: false,
-            success: false
+            success: false,
+            loading: false
         }
     }
 
     handleSubmitClick = (evt) => {
+        this.setState({
+            loading: true
+        })
         evt.preventDefault();
         let {email, name, emailValid, nameValid} = this.state;
         if(!this.isEmailValid(email)) {
@@ -42,19 +48,25 @@ class Invite extends Component {
                 .then(response => {
                     if(response.data.success) {
                         this.setState({
-                            success: true
+                            success: true, 
+                            loading: false
                         })
                     } else {
-                        console.log("setting error to true");
                         this.setState({
-                            error: true
+                            error: true,
+                            loading: false
                         })
                         setTimeout(function(){
                             window.location.reload();
                         }, 5000)
                     }
                 })
+        } else {
+            this.setState({
+                loading: false
+            })
         }
+
     }
 
     handleNameInputChange = (evt) => {
@@ -95,9 +107,14 @@ class Invite extends Component {
     }
 
     render() {
-        let {name, email, nameValid, emailValid, success, error} = this.state;
+        let {name, email, nameValid, emailValid, success, error, loading} = this.state;
         let emailError = emailValid ? "" : "input-error";
         let nameError = nameValid ? "" : "input-error";
+
+        if(loading) {
+            return <Loading />;
+        }
+
         if(error) {
             return (
                 <div className="container invite"> 
