@@ -1,0 +1,65 @@
+.add-post {
+    font-family: 'Montserrat', sans-serif;
+    &__input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+    
+    &__input-label {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: white;
+        background-color: #d66189;
+        display: block;
+        width: 75%;
+        margin: 10px auto;
+        text-align: center;
+        padding: 10px;
+        border-radius: 20px;
+    }
+    
+    &__target {
+        margin: 10px auto;
+        display: block;
+        border: 2px black solid;
+        width: 100%;
+    }
+    
+    &__caption {
+        height: auto;
+        width: 100%;
+        border-radius: 0;
+        outline: none;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+    
+    &__caption::placeholder {
+        text-align: center;
+        font-size: 20px;
+    }
+    
+    &__submit {
+        font-size: 2.25em;
+        font-weight: 700;
+        color: white;
+        background-color: #089ad6;
+        display: block;
+        width: 90%;
+        margin: 10px auto;
+        text-align: center;
+        padding: 10px;
+        border-radius: 20px;
+    }
+    
+    &__success {
+        text-align: center;
+        font-size: 40px;
+        line-height: 1;
+        padding: 5px;
+    }
+}

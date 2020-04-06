@@ -10,6 +10,7 @@ import Login from './Components/Login/Login.js';
 import Footer from './Components/Footer/Footer.js';
 
 import {getUserRole} from './Utilities/UserUtilites.js';
+import AddPost from './Components/AddPost/AddPost.js';
 
 class App extends Component {
 
@@ -61,6 +62,7 @@ class App extends Component {
             <Route path="/feed/:page" exact render={(props) => <FeedContainer {...props} userRole={userRole} />}/>
             <Route path="/invite" exact render={(props) => <Invite {...props} userRole={userRole} />} />
             <Route path="/login" exact render={(props) => <Login {...props} userRole={userRole} updateUserRole={this.updateUserRole} />} />
+            <Route path="/add-post" exact render={(props) => <AddPost {...props} userRole={userRole} />} />
             <Route path="/" exact render={(props) => <Home {...props} userRole={userRole} />} />
           </Switch>
           <Footer />
