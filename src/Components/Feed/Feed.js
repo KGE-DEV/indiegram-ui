@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 
 import Post from '../Post/Post.js';
 import Pagination from '../Pagination/Pagination.js';
@@ -73,7 +73,7 @@ class Feed extends Component {
         }
         return (
             <section className="feed container">
-                {userRole === "admin" ? <a className="add-post-button"href="/add-post">Add Post</a> : null}
+                {userRole === "admin" ? <Link className="add-post-button" to="/add-post">Add Post</Link> : null}
                 
                 {this.buildFeedPosts(posts)}
                 <Pagination page={page} />
