@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import Loading from '../Loading/Loading.js';
 
 import {createPost} from '../../Utilities/PostUtilities.js';
