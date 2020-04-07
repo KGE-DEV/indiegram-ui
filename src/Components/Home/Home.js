@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 
 import Loading from '../Loading/Loading.js';
+import {sendUserEvent, PAGE_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
 
 import "./Home.scss";
 
@@ -15,6 +16,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        sendUserEvent(PAGE_VIEWED_EVENT);
         setTimeout(() => {
             this.setState({
                 loading: false

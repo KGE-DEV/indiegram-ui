@@ -30,6 +30,7 @@ class App extends Component {
           userRole: "unauthorized"
         })
       } else {
+        this.saveUserDataLocally(data.data);
         this.setState({
           userRole: data.data.role
       })
@@ -45,11 +46,16 @@ class App extends Component {
           userRole: "unauthorized"
         })
       } else {
+        this.saveUserDataLocally(data.data);
         this.setState({
           userRole: data.data.role
       })
       }
     })
+  }
+
+  saveUserDataLocally = (userData) => {
+    window.localStorage.userId = userData.id;
   }
 
   render() {
