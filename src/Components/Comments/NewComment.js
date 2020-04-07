@@ -8,7 +8,8 @@ class NewComment extends Component {
         super(props);
 
         this.state = {
-            comment: ""
+            comment: "",
+            addingComment: false
         }
     }
 
@@ -34,16 +35,24 @@ class NewComment extends Component {
                     post_id: this.props.post_id
                 })
                 this.setState({
-                    comment: ""
+                    comment: "",
+                    addingComment: false
                 })
             })
+    }
+
+    showAddButton = () => {
+        if(this.state.comment.length > 0 && !this.state.addingComment) {
+            return true;
+        }
+        return false;
     }
 
     render() {
         return (
             <div className="comments__new-comment">
                 <textarea className="comments__new-comment-input" type="text" placeholder="Add a comment..." value={this.state.comment} onChange={this.handleCommentInput}/>
-                {this.state.comment.length > 0 ?
+                {this.showAddButton() ?
                 <button className="comments__add-comment" onClick={this.postComment}>Add</button>
                 :
                 null}
