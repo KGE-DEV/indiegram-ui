@@ -58,7 +58,6 @@ class Login extends Component {
     render() {
         let {userRole} = this.props;
         if(userRole === "admin" || userRole === "subscriber") {
-            console.log("redirecting because user role is authorized");
             return <Redirect to="/feed/1" />;
         }
         let {email, password, error, loading} = this.state;
