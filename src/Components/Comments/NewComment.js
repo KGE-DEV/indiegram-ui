@@ -27,6 +27,9 @@ class NewComment extends Component {
     }
 
     postComment = () => {
+        this.setState({
+            addingComment: true
+        })
         let data = this.formatCommentData();
         Promise.resolve(postComment(data))
             .then(data => {
