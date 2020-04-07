@@ -36,14 +36,18 @@ class Post extends Component {
     render() {
         let {post_content, post_image_url, date_time_added, post_id, postClass} = this.props;
         return (
-            <div className={postClass}>
+            <div className={postClass} >
+                {this.props.individualPost ?
                 <img className="post__image" src={post_image_url} alt="" onLoad={this.props.handleImageLoaded} />
+                : 
+                <img className="post__image" src={post_image_url} alt="" onLoad={this.props.handleImageLoaded} onClick={() => {this.props.showIndividualPost(this.props)}}/>}
+                
                 <div className="post__content-cont">
                     <p className="post__date">{this.formatDate(date_time_added)}</p>
                     <p className="post__content">{this.formatContent(post_content)}</p>
-                    <Comments post_id={post_id} newComments={this.state.newComments}/>
+                    <Comments post_id={post_id} newComments={this.state.newComments} showAllComments={this.props.individualPost}/>
                     <hr />
-                    <NewComment post_id={post_id} updateComment={this.updateComment}/>
+                    <NewComment post_id={post_id} updateComment={this.updateComment} />
                 </div>
             </div>
         )
