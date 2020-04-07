@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import './Comments.scss';
 
-import {getCommentsPreview} from '../../Utilities/CommentUtilities.js';
+import {getComments} from '../../Utilities/CommentUtilities.js';
 
 class Comments extends Component {
 
@@ -16,7 +16,7 @@ class Comments extends Component {
     }
 
     componentDidMount() {
-        Promise.resolve(getCommentsPreview(this.props.post_id))
+        Promise.resolve(getComments(this.props.post_id, this.props.showAllComments))
             .then(data => {
                 this.setState({
                     comments: data.data.comments
@@ -32,7 +32,7 @@ class Comments extends Component {
 
     componentDidUpdate() {
         if(this.props.newComments > this.state.countOfUpdatedComments) {
-            Promise.resolve(getCommentsPreview(this.props.post_id))
+            Promise.resolve(getComments(this.props.post_id, this.props.showAllComments))
             .then(data => {
                 this.setState({
                     comments: data.data.comments,

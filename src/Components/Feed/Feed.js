@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {Redirect, Link} from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+
 import Post from '../Post/Post.js';
 import Pagination from '../Pagination/Pagination.js';
 import Loading from '../Loading/Loading.js';
@@ -17,7 +20,8 @@ class Feed extends Component {
             posts: [],
             imagesLoaded: 0,
             postClass: "post hidden",
-            loading: false
+            loading: false,
+            showIndividualPost: false
         }
     }
 
@@ -74,7 +78,18 @@ class Feed extends Component {
         }
         return (
             posts.map(post => {
-                return <Post key={post.id} post_id={post.id} post_content={post.post_content} post_image_url={post.post_image_url} date_time_added={post.date_time_added} handleImageLoaded={this.handleImageLoaded} postClass={this.state.postClass}/>
+                return (
+                    <Post 
+                        key={post.id} 
+                        post_id={post.id} 
+                        post_content={post.post_content} 
+                        post_image_url={post.post_image_url} 
+                        date_time_added={post.date_time_added} 
+                        handleImageLoaded={this.handleImageLoaded} 
+                        postClass={this.state.postClass} 
+                        showIndividualPost={this.showIndividualPost}
+                    />
+                    )
             })
         )
     }
@@ -86,14 +101,43 @@ class Feed extends Component {
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
+    showIndividualPost = (post) => {
+        this.setState({
+            showIndividualPost: true,
+            individualPost: post
+        })
+    }
+
+    goBack = () => {
+        this.setState({
+            individualPost: null,
+            showIndividualPost: false
+        })
+    }
+
     render() {
-        let {posts, loading} = this.state;
+        let {posts, loading, showIndividualPost, individualPost} = this.state;
         let {userRole, page} = this.props;
         if(userRole === "unauthorized") {
             return <Redirect to="/" />
         }
         if(posts.length === 0) {
             return <Loading />
+        }
+        if(showIndividualPost) {
+            return (
+                <section className="feed container">
+                    <p className="feed__go-back" onClick={this.goBack}><FontAwesomeIcon icon={faChevronLeft} /> Back</p>
+                    <Post 
+                        post_id={individualPost.post_id} 
+                        post_content={individualPost.post_content} 
+                        post_image_url={individualPost.post_image_url} 
+                        date_time_added={individualPost.date_time_added} 
+                        postClass={this.state.postClass} 
+                        individualPost={true}
+                    />
+                </section>
+            )
         }
         return (
             <section className="feed container">
