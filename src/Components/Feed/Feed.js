@@ -8,6 +8,7 @@ import Post from '../Post/Post.js';
 import Pagination from '../Pagination/Pagination.js';
 import Loading from '../Loading/Loading.js';
 import {getPaginatedPosts} from '../../Utilities/PostUtilities.js';
+import {sendUserEvent, PAGE_VIEWED_EVENT, POST_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
 
 import './Feed.scss';
 
@@ -26,6 +27,7 @@ class Feed extends Component {
     }
 
     componentDidMount() {
+        sendUserEvent(PAGE_VIEWED_EVENT);
         this.setState({
             loading: true
         })
@@ -102,6 +104,7 @@ class Feed extends Component {
     };
 
     showIndividualPost = (post) => {
+        sendUserEvent(POST_VIEWED_EVENT, post.post_id);
         this.setState({
             showIndividualPost: true,
             individualPost: post

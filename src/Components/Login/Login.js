@@ -4,6 +4,8 @@ import {Redirect} from 'react-router-dom';
 import Loading from '../Loading/Loading.js';
 import {sendLoginRequest} from '../../Utilities/UserUtilites.js';
 
+import {sendUserEvent, LOGGED_IN_EVENT, PAGE_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
+
 import './Login.scss';
 
 class Login extends Component {
@@ -18,6 +20,10 @@ class Login extends Component {
             error: false,
             loading: false
         }
+    }
+
+    componentDidMount() {
+        sendUserEvent(PAGE_VIEWED_EVENT);
     }
 
     handlePasswordInputChange = (evt) => {
@@ -43,8 +49,9 @@ class Login extends Component {
         Promise.resolve(sendLoginRequest(data))
             .then(response => {
                 if(response.data.success) {
+                    this.props.updateUserRole();
                     setTimeout(() => {
-                        this.props.updateUserRole();
+                        sendUserEvent(LOGGED_IN_EVENT);
                     }, 1500)
                 } else {
                     this.setState({

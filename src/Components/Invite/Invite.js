@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import Loading from "../Loading/Loading.js";
 
 import {sendInviteRequest} from '../../Utilities/InviteUtilities.js';
+import {sendUserEvent, PAGE_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
 
 import "./Invite.scss";
 
@@ -21,6 +22,10 @@ class Invite extends Component {
             success: false,
             loading: false
         }
+    }
+
+    componentDidMount() {
+        sendUserEvent(PAGE_VIEWED_EVENT);
     }
 
     handleSubmitClick = (evt) => {
