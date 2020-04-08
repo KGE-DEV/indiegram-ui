@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from "../Loading/Loading.js";
 
@@ -144,6 +147,7 @@ class Invite extends Component {
 
         return (
             <div className="container invite"> 
+            <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <form id="jsInviteForm">
                     <p className="invite__header">Request Invitation</p>
                     <label className="invite__label">Name</label>

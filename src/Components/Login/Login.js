@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../Loading/Loading.js';
 import {sendLoginRequest} from '../../Utilities/UserUtilites.js';
@@ -73,6 +75,7 @@ class Login extends Component {
         }
         return (
             <div className="container login"> 
+            <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <form>
                     <p className="login__header">Login</p>
                     {error ? <p className="login__error">Wrong Password</p> : null}
