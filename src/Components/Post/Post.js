@@ -23,8 +23,15 @@ class Post extends Component {
     }
 
     formatDate = (date) => {
-        let momentDate = Moment(date, "YYYY-MM-DD hh:mm:ss.SSS");
-        return "Posted " + momentDate.fromNow();
+        let momentDate = Moment(date);
+        let momentDateInAWeek = Moment(new Date());
+        momentDateInAWeek = momentDateInAWeek.subtract(7, "days");
+        if(momentDate > momentDateInAWeek) {
+            momentDate = momentDate.subtract(7,'hours').fromNow();
+        } else {
+            momentDate = momentDate.format("MM.DD.YYYY");
+        }
+        return "Posted " + momentDate;
     }
 
     updateComment = (comment) => {
