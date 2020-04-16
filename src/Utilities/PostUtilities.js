@@ -2,10 +2,10 @@ import {sendGet, sendPost} from './DataUtilities.js';
 
 import env from './env.js';
 
-let {API_URL, HOME_URL} = env;
+let {API_URL} = env;
 let paginatedPostsEndpoint = "/post/get/paginated/";
 let postCountEndpoint = "/post/count";
-let createPostEndpoint = "/wp-admin/admin-ajax.php";
+let createPostEndpoint = "/post/add";
 
 export const getPaginatedPosts = (page = 0) => {
     if(page === "") {
@@ -21,6 +21,8 @@ export const getPostCount = () => {
 export const createPost = (data) => {
   let formData = new FormData();
   formData.append("caption", data.caption);
-  formData.append("image", data.file);
-  return sendPost(HOME_URL + createPostEndpoint + "?action=" + data.action, formData);
+  formData.append("file", data.file);
+  formData.append("name", data.name);
+  formData.append("type", data.type);
+  return sendPost(API_URL + createPostEndpoint, formData);
 }
