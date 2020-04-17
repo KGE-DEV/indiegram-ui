@@ -7,6 +7,8 @@ import FeedContainer from './Components/Feed/FeedContainer.js';
 import Home from './Components/Home/Home.js';
 import Invite from './Components/Invite/Invite.js';
 import Login from './Components/Login/Login.js';
+import ForgotPassword from './Components/ForgotPassword/ForgotPassword.js';
+import ResetPassword from './Components/ResetPassword/ResetPassword.js';
 import Footer from './Components/Footer/Footer.js';
 
 import {getUserRole} from './Utilities/UserUtilites.js';
@@ -69,6 +71,8 @@ class App extends Component {
             <Route path="/invite" exact render={(props) => <Invite {...props} userRole={userRole} />} />
             <Route path="/login" exact render={(props) => <Login {...props} userRole={userRole} updateUserRole={this.updateUserRole} />} />
             <Route path="/add-post" exact render={(props) => <AddPost {...props} userRole={userRole} />} />
+            <Route path="/forgot-password" exact render={(props) => <ForgotPassword {...props} userRole={userRole} />} />
+            <Route path="/reset-password" exact render={(props) => <ResetPassword {...props} userRole={userRole} />} />
             <Route path="/" exact render={(props) => <Home {...props} userRole={userRole} />} />
           </Switch>
           <Footer />

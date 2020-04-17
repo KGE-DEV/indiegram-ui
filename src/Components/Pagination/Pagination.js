@@ -47,7 +47,7 @@ class Pagination extends Component {
 
         if(startingBox < 1) {
             startingBox = 1;
-            endingBox = 5;
+            endingBox = totalPages > 5 ? 5 : totalPages;
         }
         for(let i = startingBox, c = endingBox;i<c + 1;i++) {
             if(i === page) {
