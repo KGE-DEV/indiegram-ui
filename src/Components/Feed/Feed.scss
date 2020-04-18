@@ -3,4 +3,11 @@
         font-family: 'Montserrat', sans-serif;
         cursor: pointer;
     }
+
+    &__admin-button {
+        margin: 0 auto 20px;
+        display: block;
+        width: 200px;
+        border-radius: 50%;
+    }
 }

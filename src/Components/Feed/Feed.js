@@ -11,6 +11,7 @@ import {getPaginatedPosts} from '../../Utilities/PostUtilities.js';
 import {sendUserEvent, PAGE_VIEWED_EVENT, POST_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
 
 import './Feed.scss';
+import adminButton from './assets/img/admin-button.png';
 
 class Feed extends Component {
 
@@ -145,7 +146,7 @@ class Feed extends Component {
         return (
             <section className="feed container">
                 {loading ? <Loading /> : null}
-                {!loading && userRole === "admin" ? <Link className="add-post-button" to="/admin">Admin</Link> : null}
+                {!loading && userRole === "admin" ? <Link to="/admin"><img src={adminButton} className="feed__admin-button" alt="admin button"/></Link> : null}
                 {this.buildFeedPosts(posts)}
                 {!loading && <Pagination page={page} />}
             </section>
