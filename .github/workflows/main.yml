@@ -29,3 +29,4 @@ jobs:
         REMOTE_DIR: ./
         METHOD: sftp
         PORT: 221
+        ARGS: --delete
