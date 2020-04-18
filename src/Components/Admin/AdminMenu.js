@@ -13,6 +13,7 @@ class AdminMenu extends Component {
             <div className="container admin-menu">
                 <Link to="/admin/add-post" className="admin-menu__link">Add Post</Link>
                 <Link to="/admin/invites" className="admin-menu__link">Approve Invites</Link>
+                <Link to="/admin/users" className="admin-menu__link">Users</Link>
             </div>
         )
     }
