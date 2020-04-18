@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import Loading from '../Loading/Loading.js';
+import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 import {createPost} from '../../Utilities/PostUtilities.js';
 
@@ -99,6 +102,7 @@ class AddPost extends Component {
         }
         return (
             <div className="container add-post">
+                <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <p className="home__link">Add Post</p>
                 <label className="add-post__input-label">
                     {img ? "Choose Another Image" : "Choose An Image"}

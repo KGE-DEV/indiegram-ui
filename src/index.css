@@ -8,6 +8,7 @@ body {
 .container {
     max-width: 500px;
     margin: 0 auto;
+    min-height: 70vh;
 }
 
 .add-post-button {

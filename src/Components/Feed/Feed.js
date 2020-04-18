@@ -145,7 +145,7 @@ class Feed extends Component {
         return (
             <section className="feed container">
                 {loading ? <Loading /> : null}
-                {!loading && userRole === "admin" ? <Link className="add-post-button" to="/add-post">Add Post</Link> : null}
+                {!loading && userRole === "admin" ? <Link className="add-post-button" to="/admin">Admin</Link> : null}
                 {this.buildFeedPosts(posts)}
                 {!loading && <Pagination page={page} />}
             </section>
