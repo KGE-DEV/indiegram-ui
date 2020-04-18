@@ -6,7 +6,9 @@ let {API_URL} = env;
 let getUserRoleEndpoint = "/user/get/role";
 let sendUserLoginEndpoint = "/user/login";
 let sendResetPasswordRequestEndpoint = "/user/password/request/reset";
-let sendResetPasswordEndpoint = "/user/password/reset"
+let sendResetPasswordEndpoint = "/user/password/reset";
+let getInvitesEndpoint = "/user/invites";
+let approveInviteEndpoint = "/user/add";
 
 export const getUserRole = () => {
   return sendGet(API_URL + getUserRoleEndpoint);
@@ -24,3 +26,10 @@ export const sendResetPassword = (data) => {
   return sendPost(API_URL + sendResetPasswordEndpoint + `?email=${data.email}&password=${data.password}&token=${data.token}`)
 }
 
+export const getInvites = () => {
+  return sendGet(API_URL + getInvitesEndpoint);
+}
+
+export const approveInvite = (invite) => {
+  return sendPost(API_URL + approveInviteEndpoint + `?email=${invite.email}&name=${invite.name}`)
+}
