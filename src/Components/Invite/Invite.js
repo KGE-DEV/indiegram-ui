@@ -18,7 +18,6 @@ class Invite extends Component {
         this.state = {
             email: "",
             name: "",
-            action: "submit_invitation_request",
             emailValid: true,
             nameValid: true,
             error: false,
@@ -110,8 +109,8 @@ class Invite extends Component {
     }
 
     buildSendInviteUrlString = (state) => {
-        let {action, name, email} = state;
-        return `?action=${action}&email=${email}&name=${name}`;
+        let {name, email} = state;
+        return `?email=${email}&name=${name}`;
     }
 
     render() {
@@ -139,7 +138,7 @@ class Invite extends Component {
                 <div className="container invite"> 
                     <div id="jsInviteSuccessMessage" className="invite__success">
                         <p className="invite__success-header">Success!</p>
-                        <p className="invite__success-subheader">You will recieve an email when your account has been created.</p>
+                        <p className="invite__success-subheader">You will recieve an email when your account has been approved.</p>
                     </div>
                 </div>
             )

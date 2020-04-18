@@ -2,18 +2,25 @@ import {sendGet, sendPost} from './DataUtilities.js';
 
 import env from './env.js';
 
-let {API_URL, HOME_URL} = env;
+let {API_URL} = env;
 let getUserRoleEndpoint = "/user/get/role";
-let sendUserLoginEndpoint = "/wp-admin/admin-ajax.php";
+let sendUserLoginEndpoint = "/user/login";
+let sendResetPasswordRequestEndpoint = "/user/password/request/reset";
+let sendResetPasswordEndpoint = "/user/password/reset"
 
 export const getUserRole = () => {
   return sendGet(API_URL + getUserRoleEndpoint);
 }
 
 export const sendLoginRequest = (data) => {
-  let formData = new FormData();
-  formData.append("email", data.email);
-  formData.append("password", data.password);
-  return sendPost(HOME_URL + sendUserLoginEndpoint + "?action=" + data.action, formData);
+  return sendPost(API_URL + sendUserLoginEndpoint + "?email=" + data.email + "&password=" + data.password);
+}
+
+export const sendResetPasswordRequest = (data) => {
+  return sendPost(API_URL + sendResetPasswordRequestEndpoint + "?email=" + data.email);
+}
+
+export const sendResetPassword = (data) => {
+  return sendPost(API_URL + sendResetPasswordEndpoint + `?email=${data.email}&password=${data.password}&token=${data.token}`)
 }
 

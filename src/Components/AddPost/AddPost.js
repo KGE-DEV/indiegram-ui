@@ -13,7 +13,8 @@ class AddPost extends Component {
              caption: "",
              img: null,
              file: null,
-             action: "submit_elsiegram_post",
+             name: null,
+             type: null,
              loading: false,
              success: false,
              failed: false
@@ -30,7 +31,9 @@ class AddPost extends Component {
         };
         fr.readAsDataURL(evt.target.files[0]);
         this.setState({
-            file: evt.target.files[0]
+            file: evt.target.files[0],
+            name: evt.target.files[0].name,
+            type: evt.target.files[0].type
         })
     }
 

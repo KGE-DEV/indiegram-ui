@@ -4,35 +4,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../Loading/Loading.js';
-import {sendLoginRequest} from '../../Utilities/UserUtilites.js';
+import {sendResetPasswordRequest} from '../../Utilities/UserUtilites.js';
 
 import {sendUserEvent, LOGGED_IN_EVENT, PAGE_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
 
-import './Login.scss';
+import './ForgotPassword.scss';
 
-class Login extends Component {
-
+class ForgetPassword extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             email: "",
-            password: "",
-            action: "ui_login",
+            action: "ui_reset_password",
             error: false,
-            loading: false
+            loading: false,
+            success: false
         }
     }
 
     componentDidMount() {
         sendUserEvent(PAGE_VIEWED_EVENT);
-    }
-
-    handlePasswordInputChange = (evt) => {
-        let password = evt.target.value;
-        this.setState({
-            password
-        })
     }
 
     handleEmailInputChange = (evt) => {
@@ -48,12 +40,15 @@ class Login extends Component {
         })
         evt.preventDefault();
         let data = this.state;
-        Promise.resolve(sendLoginRequest(data))
+        Promise.resolve(sendResetPasswordRequest(data))
             .then(response => {
                 if(response.data.success) {
-                    this.props.updateUserRole();
                     setTimeout(() => {
                         sendUserEvent(LOGGED_IN_EVENT);
+                        this.setState({
+                            success: true,
+                            loading: false
+                        })
                     }, 1500)
                 } else {
                     this.setState({
@@ -69,24 +64,31 @@ class Login extends Component {
         if(userRole === "admin" || userRole === "subscriber") {
             return <Redirect to="/feed/1" />;
         }
-        let {email, password, error, loading} = this.state;
+        let {email, error, loading, success} = this.state;
         if(loading) {
             return <Loading />
         }
+        if(success) {
+            return (
+                <div className="container login forgot-password"> 
+                    <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
+                    <p className="forgot-password__message forgot-password__message--success">Please check the email entered for your password reset link.</p> 
+                </div>
+            )
+        }
         return (
-            <div className="container login"> 
+            <div className="container login forgot-password"> 
             <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
-            <Link to="/forgot-password"><p className="feed__go-back">Forgot Password?</p></Link>
                 <form>
-                    <p className="login__header">Login</p>
-                    {error ? <p className="login__error">Wrong Password</p> : null}
+                    <p className="login__header">Forgot Password</p>
+                    <p className="forgot-password__message">Please enter your email address. You will receive a link to create a new password via email.</p>
+                    {error ? <p className="login__error">Something went wrong. Please try again.</p> : null}
                     <input type="email" placeholder="Email" className="login__input" value={email} onChange={this.handleEmailInputChange}/>
-                    <input type="password" placeholder="Password" className="login__input" value={password} onChange={this.handlePasswordInputChange}/>
-                    <button className="login__submit" onClick={this.handleSubmitClick}>Submit</button>
+                    <button className="login__submit" onClick={this.handleSubmitClick}>Get New Password</button>
                 </form>
             </div>
         )
     }
 }
 
-export default Login;
+export default ForgetPassword;
