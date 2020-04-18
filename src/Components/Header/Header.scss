@@ -4,4 +4,7 @@
     justify-content: space-around;
     height: auto;
     min-height: initial;
+    &__logo {
+        max-width: 180px;
+    }
 }

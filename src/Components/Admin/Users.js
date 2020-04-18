@@ -120,7 +120,7 @@ class Users extends Component {
         return (
             <div className="container admin-users">
                 <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
-                <p className="login__header">Approve Invites</p>
+                <p className="login__header">Users</p>
                 {editingUser ? this.buildUserEditView() : this.buildUsersTable(users)}
             </div>
         )
