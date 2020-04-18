@@ -22,7 +22,9 @@ class Invite extends Component {
             nameValid: true,
             error: false,
             success: false,
-            loading: false
+            loading: false,
+            errorMessage: null,
+            showForgotPasswordLink: false
         }
     }
 
@@ -61,11 +63,10 @@ class Invite extends Component {
                     } else {
                         this.setState({
                             error: true,
-                            loading: false
+                            loading: false,
+                            errorMessage: response.data.message
                         })
-                        setTimeout(function(){
-                            window.location.reload();
-                        }, 5000)
+                        this.showForgotPasswordLink();
                     }
                 })
         } else {
@@ -113,8 +114,17 @@ class Invite extends Component {
         return `?email=${email}&name=${name}`;
     }
 
+    showForgotPasswordLink = () => {
+        let error = "You are already a member. If you forgot your password, please use the forgot password link below.";
+        if(this.state.errorMessage === error) {
+            this.setState({
+                showForgotPasswordLink: true
+            })
+        }
+    }
+
     render() {
-        let {name, email, nameValid, emailValid, success, error, loading} = this.state;
+        let {name, email, nameValid, emailValid, success, error, loading, errorMessage, showForgotPasswordLink} = this.state;
         let emailError = emailValid ? "" : "input-error";
         let nameError = nameValid ? "" : "input-error";
 
@@ -126,8 +136,13 @@ class Invite extends Component {
             return (
                 <div className="container invite"> 
                     <div id="jsInviteErrorMessage" className="invite__success">
-                        <p className="invite__success-header">Error...</p>
-                        <p className="invite__success-subheader">This page will refresh, then try again.</p>
+                        <p className="invite__error">
+                            {errorMessage}
+                            <br/>
+                            <br/>
+                            {showForgotPasswordLink && <Link to="forgot-password">Forgot Password</Link>}
+                        </p>
+                        
                     </div>
                 </div>
             )
