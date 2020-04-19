@@ -84,7 +84,7 @@ class ForgetPassword extends Component {
                     <p className="forgot-password__message">Please enter your email address. You will receive a link to create a new password via email.</p>
                     {error ? <p className="login__error">Something went wrong. Please try again.</p> : null}
                     <input type="email" placeholder="Email" className="login__input" value={email} onChange={this.handleEmailInputChange}/>
-                    <button className="login__submit" onClick={this.handleSubmitClick}>Get New Password</button>
+                    <button className="login__submit" onClick={this.handleSubmitClick}>Submit</button>
                 </form>
             </div>
         )
