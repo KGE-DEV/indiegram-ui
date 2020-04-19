@@ -18,12 +18,18 @@ class Login extends Component {
             password: "",
             action: "ui_login",
             error: false,
-            loading: false
+            loading: true
         }
     }
 
     componentDidMount() {
         sendUserEvent(PAGE_VIEWED_EVENT);
+        setTimeout(() => {
+            this.setState({
+                loading: false
+            })
+        }, 1500)
+
     }
 
     handlePasswordInputChange = (evt) => {
