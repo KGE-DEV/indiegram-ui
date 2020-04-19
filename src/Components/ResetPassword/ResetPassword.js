@@ -16,7 +16,6 @@ class ResetPassword extends Component {
             email: "",
             password: "",
             token: "",
-            redirectToHome: false,
             redirectToLogin: false,
             error: false,
             loading: false
@@ -28,7 +27,7 @@ class ResetPassword extends Component {
         let token = this.getTokenFromParams("token");
         if(!token || token.length === 0) {
             this.setState({
-                redirectToHome: true
+                redirectToLogin: true
             })
         } else {
             this.setState({
@@ -81,16 +80,11 @@ class ResetPassword extends Component {
     }
 
     render() {
-        let {redirectToHome, redirectToLogin, email, password, error, loading} = this.state;
+        let {redirectToLogin, email, password, error, loading} = this.state;
         let {role} = this.props;
         if(typeof(role) != "undefined") {
             return (
                 <Redirect to="/" />
-            )
-        }
-        if(redirectToHome) {
-            return (
-                <Redirect to="/home" />
             )
         }
 
@@ -101,13 +95,13 @@ class ResetPassword extends Component {
         }
         if(redirectToLogin) {
             return (
-                <Redirect to="/login" />
+                <Redirect to="/" />
             )
         }
         return (
             <div className="container login"> 
             <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
-            <Link to="/login"><p className="feed__go-back">Login</p></Link>
+            <Link to="/"><p className="feed__go-back">Login</p></Link>
                 <form>
                     <p className="login__header">Reset Password</p>
                     {error ? <p className="login__error">Please Try Again</p> : null}

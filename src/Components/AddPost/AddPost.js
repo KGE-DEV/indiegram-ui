@@ -103,7 +103,7 @@ class AddPost extends Component {
         return (
             <div className="container add-post">
                 <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
-                <p className="home__link">Add Post</p>
+                <p className="login__header">Add Post</p>
                 <label className="add-post__input-label">
                     {img ? "Choose Another Image" : "Choose An Image"}
                     <input type="file" accept="image/*" className="add-post__input" onChange={this.handleFileOnChange}/>

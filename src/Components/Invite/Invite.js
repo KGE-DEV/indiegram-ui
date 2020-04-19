@@ -163,10 +163,8 @@ class Invite extends Component {
             <div className="container invite"> 
             <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <form id="jsInviteForm">
-                    <p className="invite__header">Request Invitation</p>
-                    <label className="invite__label">Name</label>
+                    <p className="invite__header">Join</p>
                     <input type="text" placeholder="Name" className={"invite__input " + nameError} value={name} onChange={this.handleNameInputChange}/>
-                    <label className="invite__label">Email</label>
                     <input type="email" placeholder="Email" className={"invite__input " + emailError} value={email} onChange={this.handleEmailInputChange}/>
                     <button className="invite__submit" onClick={this.handleSubmitClick}>Submit</button>
                 </form>

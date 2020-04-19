@@ -20,16 +20,18 @@
         margin: 20px auto;
         box-sizing: border-box;
         display: block;
+        border-radius: 5px;
     }
     
     &__submit {
-        width: 90%;
+        width: 50%;
         margin: 33px auto;
         display: block;
-        padding: 20px;
+        padding: 15px;
         font-size: 20px;
-        background-color: #1398d5;
+        background-color: #d6e3dc;
         color: #ffff;
+        border-radius: 5px;
     }
     
     &__success-header {
