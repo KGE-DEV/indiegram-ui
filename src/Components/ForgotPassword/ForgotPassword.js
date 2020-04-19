@@ -80,7 +80,6 @@ class ForgetPassword extends Component {
             <div className="container login forgot-password"> 
             <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <form>
-                    <p className="login__header">Forgot Password</p>
                     <p className="forgot-password__message">Please enter your email address. You will receive a link to create a new password via email.</p>
                     {error ? <p className="login__error">Something went wrong. Please try again.</p> : null}
                     <input type="email" placeholder="Email" className="login__input" value={email} onChange={this.handleEmailInputChange}/>
