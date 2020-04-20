@@ -20,9 +20,10 @@ export const getPostCount = () => {
 
 export const createPost = (data) => {
   let formData = new FormData();
+  let name = data.name.split(' ').join('');
   formData.append("caption", data.caption);
   formData.append("file", data.file);
-  formData.append("name", data.name);
+  formData.append("name", name);
   formData.append("type", data.type);
   return sendPost(API_URL + createPostEndpoint, formData);
 }
