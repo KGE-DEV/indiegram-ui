@@ -6,7 +6,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import Loading from '../Loading/Loading.js';
 import {sendResetPasswordRequest} from '../../Utilities/UserUtilites.js';
 
-import {sendUserEvent, LOGGED_IN_EVENT, PAGE_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
+import {sendUserEvent, PAGE_VIEWED_EVENT, SUBMITTED_FORGOT_PASSWORD_EVENT} from '../../Utilities/EventUtilities.js';
 
 import './ForgotPassword.scss';
 
