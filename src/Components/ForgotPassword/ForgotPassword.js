@@ -44,7 +44,7 @@ class ForgetPassword extends Component {
             .then(response => {
                 if(response.data.success) {
                     setTimeout(() => {
-                        sendUserEvent(LOGGED_IN_EVENT);
+                        sendUserEvent(SUBMITTED_FORGOT_PASSWORD_EVENT);
                         this.setState({
                             success: true,
                             loading: false
