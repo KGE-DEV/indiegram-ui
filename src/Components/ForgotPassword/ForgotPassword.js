@@ -72,7 +72,7 @@ class ForgetPassword extends Component {
             return (
                 <div className="container login forgot-password"> 
                     <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
-                    <p className="forgot-password__message forgot-password__message--success">Please check the email entered for your password reset link.</p> 
+                    <p className="forgot-password__message forgot-password__message--success">Please check the email entered for your password reset link. Sometimes spam filters block automated emails. If you do not find the email in your inbox, please check your spam filter or bulk email folder.</p> 
                 </div>
             )
         }
