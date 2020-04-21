@@ -52,9 +52,9 @@ class AddPost extends Component {
         })
         evt.preventDefault();
         Promise.resolve(createPost(this.state))
-            .then(response => {
-                let success = response.data.success;
-                if(success) {
+            .then(response => {                
+                let success = response.data;
+                if(typeof(success) !== "undefined") {
                     this.setState({
                         success: true
                     })

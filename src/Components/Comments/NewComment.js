@@ -36,10 +36,7 @@ class NewComment extends Component {
         Promise.resolve(postComment(data))
             .then(data => {
                 sendUserEvent(COMMENT_ADDED_EVENT, this.state.comment);
-                this.props.updateComment({
-                    comment: this.state.comment,
-                    post_id: this.props.post_id
-                })
+                this.props.updateComment();
                 this.setState({
                     comment: "",
                     addingComment: false

@@ -34,7 +34,7 @@ class Post extends Component {
         return "Posted " + momentDate;
     }
 
-    updateComment = (comment) => {
+    updateComment = () => {
         this.setState({
             newComments: this.state.newComments + 1
         })
