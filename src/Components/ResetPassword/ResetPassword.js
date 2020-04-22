@@ -8,6 +8,8 @@ import {sendResetPassword} from '../../Utilities/UserUtilites.js';
 
 import {sendUserEvent, PAGE_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
 
+import "./ResetPassword.scss";
+
 class ResetPassword extends Component {
     constructor(props) {
         super(props);
