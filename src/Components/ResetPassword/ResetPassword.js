@@ -18,7 +18,9 @@ class ResetPassword extends Component {
             token: "",
             redirectToLogin: false,
             error: false,
-            loading: false
+            success: false,
+            loading: false,
+            timer: 5
         }
     }
 
@@ -61,8 +63,9 @@ class ResetPassword extends Component {
                 if(response.data.success) {
                     this.setState({
                         loading: false,
-                        redirectToLogin: true
+                        success: true
                     })
+                    this.setTimer();
                 } else {
                     this.setState({
                         error: true,
@@ -70,6 +73,21 @@ class ResetPassword extends Component {
                     })
                 }
             })
+    }
+
+    setTimer = () => {
+        let interval = setInterval(() => {
+            this.setState({
+                timer: this.state.timer - 1
+            })
+            if(this.state.timer === 0) {
+                this.clearTimer(interval)
+            }
+        }, 1000);
+    }
+
+    clearTimer = (interval) => {
+        clearInterval(interval);
     }
 
     getTokenFromParams = (name) => {
@@ -80,7 +98,7 @@ class ResetPassword extends Component {
     }
 
     render() {
-        let {redirectToLogin, email, password, error, loading} = this.state;
+        let {redirectToLogin, email, password, error, loading, success, timer} = this.state;
         let {role} = this.props;
         if(typeof(role) != "undefined") {
             return (
@@ -96,6 +114,18 @@ class ResetPassword extends Component {
         if(redirectToLogin) {
             return (
                 <Redirect to="/" />
+            )
+        }
+        if(timer === 0) {
+            this.props.updateUserRole();
+            return <Redirect to="/feed/1" />;
+        }
+
+        if(success) {
+            return (
+                <div className="container login reset-password"> 
+                    <p className="reset-password__success">You have successfully reset your password. You will be automatically logged on in {timer} second{timer === 1 ? "" : "s"}.</p>
+                </div>
             )
         }
         return (

@@ -71,7 +71,7 @@ class App extends Component {
             <Route path="/feed/:page" exact render={(props) => <FeedContainer {...props} userRole={userRole} />}/>
             <Route path="/invite" exact render={(props) => <Invite {...props} userRole={userRole} />} />
             <Route path="/forgot-password" exact render={(props) => <ForgotPassword {...props} userRole={userRole} />} />
-            <Route path="/reset-password" exact render={(props) => <ResetPassword {...props} userRole={userRole} />} />
+            <Route path="/reset-password" exact render={(props) => <ResetPassword {...props} userRole={userRole} updateUserRole={this.updateUserRole} />} />
             <Route path="/admin" render={(props) => <Admin {...props} userRole={userRole} />} />
             <Route path="/terms" render={(props) => <Terms {...props} userRole={userRole} />} />
             <Route path="/" exact render={(props) => <Login {...props} userRole={userRole} updateUserRole={this.updateUserRole} />} />
