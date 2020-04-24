@@ -131,11 +131,11 @@ class ResetPassword extends Component {
             )
         }
         return (
-            <div className="container login"> 
+            <div className="container login reset-password"> 
             <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
             <Link to="/"><p className="feed__go-back">Login</p></Link>
                 <form>
-                    <p className="login__header">Reset Password</p>
+                    <p className="reset-password__message">Enter your email and new password below to change your password.</p>
                     {error ? <p className="login__error">Please Try Again</p> : null}
                     <input type="email" placeholder="Email" className="login__input" value={email} onChange={this.handleEmailInputChange}/>
                     <input type="password" placeholder="Password" className="login__input" value={password} onChange={this.handlePasswordInputChange}/>
