@@ -18,7 +18,7 @@ class Post extends Component {
         try {
             return decodeURIComponent(content.replace(/\+/g, '%20'));
         } catch (error) {
-            console.log(error, content);
+            return content;
         }
     }
 
