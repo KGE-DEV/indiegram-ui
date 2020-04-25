@@ -14,6 +14,14 @@ class Post extends Component {
         }
     }
 
+    formatContent = (content) => {
+        try {
+            return decodeURIComponent(content.replace(/\+/g, '%20'));
+        } catch (error) {
+            return content;
+        }
+    }
+
     formatDate = (date) => {
         let momentDate = Moment(date);
         let momentDateInAWeek = Moment(new Date());
@@ -43,7 +51,7 @@ class Post extends Component {
                 
                 <div className="post__content-cont">
                     <p className="post__date">{this.formatDate(date_time_added)}</p>
-                    <p className="post__content">{post_content}</p>
+                    <p className="post__content">{this.formatContent(post_content)}</p>
                     <Comments post_id={post_id} newComments={this.state.newComments} showAllComments={this.props.individualPost}/>
                     <hr />
                     <NewComment post_id={post_id} updateComment={this.updateComment} />
