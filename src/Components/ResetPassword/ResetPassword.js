@@ -22,7 +22,8 @@ class ResetPassword extends Component {
             error: false,
             success: false,
             loading: false,
-            timer: 5
+            timer: 5,
+            isSettingPassword: false
         }
     }
 
@@ -35,7 +36,9 @@ class ResetPassword extends Component {
             })
         } else {
             this.setState({
-                token
+                token,
+                isSettingPassword: this.getTokenFromParams("set") === "true" ? true : false,
+                email: this.getTokenFromParams("email")
             })
         }
     }
@@ -100,7 +103,8 @@ class ResetPassword extends Component {
     }
 
     render() {
-        let {redirectToLogin, email, password, error, loading, success, timer} = this.state;
+        let {redirectToLogin, email, password, error, loading, success, timer, isSettingPassword} = this.state;
+        console.log({isSettingPassword});
         let {role} = this.props;
         if(typeof(role) != "undefined") {
             return (
@@ -126,7 +130,7 @@ class ResetPassword extends Component {
         if(success) {
             return (
                 <div className="container login reset-password"> 
-                    <p className="reset-password__success">You have successfully reset your password. You will be automatically logged on in {timer} second{timer === 1 ? "" : "s"}.</p>
+                    <p className="reset-password__success">You have successfully {isSettingPassword ? "set" : "reset"} your password. You will be automatically logged on in {timer} second{timer === 1 ? "" : "s"}.</p>
                 </div>
             )
         }
@@ -135,7 +139,7 @@ class ResetPassword extends Component {
             <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
             <Link to="/"><p className="feed__go-back">Login</p></Link>
                 <form>
-                    <p className="reset-password__message">Enter your email and new password below to change your password.</p>
+                    <p className="reset-password__message">Enter your email and {isSettingPassword ? "" : "new"} password below to {isSettingPassword ? "set" : "change"} your password.</p>
                     {error ? <p className="login__error">Please Try Again</p> : null}
                     <input type="email" placeholder="Email" className="login__input" value={email} onChange={this.handleEmailInputChange}/>
                     <input type="password" placeholder="Password" className="login__input" value={password} onChange={this.handlePasswordInputChange}/>
