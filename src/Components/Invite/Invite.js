@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
@@ -125,6 +125,14 @@ class Invite extends Component {
 
     render() {
         let {name, email, nameValid, emailValid, success, error, loading, errorMessage, showForgotPasswordLink} = this.state;
+
+        let {userRole} = this.props;
+        if(typeof(userRole) !== "undefined" && userRole !== "unauthorized") {
+            return (
+                <Redirect to="/" />
+            )
+        }
+
         let emailError = emailValid ? "" : "input-error";
         let nameError = nameValid ? "" : "input-error";
 
@@ -163,7 +171,7 @@ class Invite extends Component {
             <div className="container invite"> 
             <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <form id="jsInviteForm">
-                    <p className="invite__header">Join</p>
+                    <p className="invite__success-subheader">Enter your name and email below to request access to ElsieGram.com</p>
                     <input type="text" placeholder="Name" className={"invite__input " + nameError} value={name} onChange={this.handleNameInputChange}/>
                     <input type="email" placeholder="Email" className={"invite__input " + emailError} value={email} onChange={this.handleEmailInputChange}/>
                     <button className="invite__submit" onClick={this.handleSubmitClick}>Submit</button>

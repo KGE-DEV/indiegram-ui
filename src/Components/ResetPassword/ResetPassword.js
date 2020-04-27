@@ -28,7 +28,10 @@ class ResetPassword extends Component {
     }
 
     componentDidMount() {
-        sendUserEvent(PAGE_VIEWED_EVENT);
+        sendUserEvent(PAGE_VIEWED_EVENT);  
+        if(typeof(this.props.userRole) === "undefined" || this.props.userRole === "unauthorized") {
+            this.props.updateUserRole();
+        }
         let token = this.getTokenFromParams("token");
         if(!token || token.length === 0) {
             this.setState({
@@ -104,9 +107,9 @@ class ResetPassword extends Component {
 
     render() {
         let {redirectToLogin, email, password, error, loading, success, timer, isSettingPassword} = this.state;
-        console.log({isSettingPassword});
-        let {role} = this.props;
-        if(typeof(role) != "undefined") {
+
+        let {userRole} = this.props;
+        if(typeof(userRole) !== "undefined" && userRole !== "unauthorized") {
             return (
                 <Redirect to="/" />
             )
@@ -130,7 +133,7 @@ class ResetPassword extends Component {
         if(success) {
             return (
                 <div className="container login reset-password"> 
-                    <p className="reset-password__success">You have successfully {isSettingPassword ? "set" : "reset"} your password. You will be automatically logged on in {timer} second{timer === 1 ? "" : "s"}.</p>
+                    <p className="reset-password__success">You have successfully {isSettingPassword ? "created" : "reset"} your password. You will be automatically logged on in {timer} second{timer === 1 ? "" : "s"}.</p>
                 </div>
             )
         }
@@ -139,9 +142,11 @@ class ResetPassword extends Component {
             <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
             <Link to="/"><p className="feed__go-back">Login</p></Link>
                 <form>
-                    <p className="reset-password__message">Enter your email and {isSettingPassword ? "" : "new"} password below to {isSettingPassword ? "set" : "change"} your password.</p>
+                    
+                    
+                    <p className="reset-password__message">{isSettingPassword ? "Enter a password below to create your login for ElsieGram.com associated with " + email + "." : "Enter your new password below to change your login for ElsieGram.com associated with " + email + "."}</p>
                     {error ? <p className="login__error">Please Try Again</p> : null}
-                    <input type="email" placeholder="Email" className="login__input" value={email} onChange={this.handleEmailInputChange}/>
+                    <input type="hidden" placeholder="Email" className="login__input" value={email} onChange={this.handleEmailInputChange}/>
                     <input type="password" placeholder="Password" className="login__input" value={password} onChange={this.handlePasswordInputChange}/>
                     <button className="login__submit" onClick={this.handleSubmitClick}>Submit</button>
                 </form>
