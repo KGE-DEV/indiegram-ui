@@ -119,3 +119,22 @@
         border: 2px solid #089ad6;
     }
 }
+
+.user-events {
+    font-family: 'Montserrat', sans-serif;
+
+    &__event-row {
+        display: flex;
+        line-height: 0;
+        border-bottom: 1px solid #000;
+    }
+    
+    &__event-col {
+        width: 25%;
+    }
+
+    &__event-col--header {
+        font-weight: bold;
+        cursor: pointer;
+    }
+}

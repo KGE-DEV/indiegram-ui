@@ -5,6 +5,7 @@ import AdminMenu from './AdminMenu.js';
 import ApproveInvites from './ApproveInvites.js';
 import AddPost from '../AddPost/AddPost.js';
 import Users from './Users.js';
+import UserEvents from './UserEvents.js';
 
 import "./Admin.scss";
 
@@ -28,6 +29,7 @@ class Admin extends Component {
                     </Route>
                     <Route path="/admin/add-post" exact render={(props) => <AddPost {...props} userRole={userRole} />} />
                     <Route path="/admin/users" exact render={(props) => <Users {...props} userRole={userRole} />} />
+                    <Route path="/admin/user-events" exact render={(props) => <UserEvents {...props} userRole={userRole} />} />
                     <Route path="*">
                         <Redirect to="/admin" />
                     </Route>
