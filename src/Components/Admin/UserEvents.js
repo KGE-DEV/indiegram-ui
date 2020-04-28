@@ -177,6 +177,15 @@ class UserEvents extends Component {
         if(showSingleEvent) {
             return this.buildSingleEventCard(individualEvent);
         }
+        if(events.length === 0) {
+            return (
+            <div className="container user-events">
+                <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
+                <p className="login__header">User Events</p>{viewingAllEvents ? null : <p className="feed__go-back" onClick={this.viewLatestEvents}>View Latest Events</p>}
+                <p className="user-events__last-seen">No events found</p>
+            </div>
+            )
+        }
         return (
             <div className="container user-events">
                 <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
