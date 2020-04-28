@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-import {getEventsByUser, getEventsByEvent, getLatestEvents} from "../../Utilities/EventUtilities.js";
+import {getLatestEvents} from "../../Utilities/EventUtilities.js";
 
 class UserEvents extends Component {
     constructor(props) {
