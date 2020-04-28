@@ -20,12 +20,12 @@ class UserEvents extends Component {
             eventByType: this.getTokenFromParams("event_by_type").length > 0 ? this.getTokenFromParams("event_by_type") : "latest",
             user: this.getTokenFromParams("user"),
             event: this.getTokenFromParams("event"),
-            viewingAllEvents: this.getTokenFromParams("event_by_type").length > 0 ? false : true
+            viewingAllEvents: this.getTokenFromParams("event_by_type").length > 0 ? false : true,
+            activePage: 0
         }
     }
 
     componentDidMount() {
-        console.log("component mounted");
         let eventByType = this.decideEventSet();
         Promise.resolve(eventByType(this.state))
             .then(res => {
@@ -145,9 +145,27 @@ class UserEvents extends Component {
         window.location = "/admin/user-events";
     }
 
+    changeViewSet = (setStart, activePage) => {
+        this.setState({
+            eventSet: setStart,
+            activePage
+        })
+        window.scrollTo(0,0)
+    }
+
+    buildPagination = () => {
+        let {events, activePage} = this.state;
+        let numOfPages = Math.ceil(events.length/100);
+        let indicators = [];
+        for(let i = 0;i<numOfPages;i++){
+            let active = i === activePage ? "user-events__page-indicator--active" : "";
+            indicators.push(<div className={"user-events__page-indicator " + active} key={i} onClick={() => {this.changeViewSet(i * 100, i)}}>{i + 1}</div>);
+        }
+        return indicators;
+    }
+
     render() {
         let {showSingleEvent, individualEvent, viewingAllEvents} = this.state;
-        console.log(viewingAllEvents);
         if(showSingleEvent) {
             return this.buildSingleEventCard(individualEvent);
         }
@@ -160,7 +178,7 @@ class UserEvents extends Component {
                     {this.buildEventsTableHeader()}
                     {this.buildEventsTable()}
                     <div className="user-events__pagination">
-                        
+                        {this.buildPagination()}
                     </div>
                 </div>
             </div>

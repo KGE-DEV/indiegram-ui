@@ -152,4 +152,24 @@
     &__property {
         font-size: 20px;
     }
+
+    &__pagination {
+        display: flex;
+        margin: 20px 0;
+        justify-content: space-evenly;
+    }
+
+    &__page-indicator {
+        width: 18%;
+        border: 1px solid black;
+        text-align: center;
+        height: 40px;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+
+    &__page-indicator--active {
+        background-color: #000;
+        color: #fff;
+    }
 }
