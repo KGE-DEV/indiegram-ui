@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import Moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,7 +14,9 @@ class UserEvents extends Component {
             events: [],
             eventSet: 0,
             flipSort: false,
-            currentSortCriteria: ""
+            currentSortCriteria: "",
+            showSingleEvent: false,
+            individualEvent: {}
         }
     }
 
@@ -29,10 +32,8 @@ class UserEvents extends Component {
     buildEventsTableHeader = () => {
         return (
         <div className="user-events__event-row">
-            <p className="user-events__event-col user-events__event-col--header" onClick={() => {this.sortEventsBy("event")}} >Event</p>
             <p className="user-events__event-col user-events__event-col--header" onClick={() => {this.sortEventsBy("name")}} >User</p>
-            <p className="user-events__event-col user-events__event-col--header" onClick={() => {this.sortEventsBy("page")}} >Page</p>
-            <p className="user-events__event-col user-events__event-col--header" >Additional Info</p>
+            <p className="user-events__event-col user-events__event-col--header" onClick={() => {this.sortEventsBy("event")}} >Event</p>
         </div>
         )
     }
@@ -40,14 +41,12 @@ class UserEvents extends Component {
     buildEventsTable = () => {
         let {events, eventSet} = this.state;
         let eventsSet = events.slice(eventSet, eventSet + 100);
-        return eventsSet.map(eventObject => {
-            let {event, meta, name, page, id} = eventObject;
+        return eventsSet.map(eventObj => {
+            let {event, name, id} = eventObj;
             return (
-                <div className="user-events__event-row" key={id}>
-                    <p className="user-events__event-col">{event}</p>
+                <div className="user-events__event-row" key={id} onClick={() => {this.showSingleEvent(eventObj)}}>
                     <p className="user-events__event-col">{name}</p>
-                    <p className="user-events__event-col">{page}</p>
-                    <p className="user-events__event-col">{meta}</p>
+                    <p className="user-events__event-col">{event}</p>
                 </div>
             );
         })
@@ -71,7 +70,57 @@ class UserEvents extends Component {
         })
     }
 
+    showSingleEvent = (event) => {
+        this.setState({
+            individualEvent: event,
+            showSingleEvent: true
+        })
+    }
+
+    showAllEvents = () => {
+        this.setState({
+            individualEvent: {},
+            showSingleEvent: false
+        })
+    }
+
+    buildSingleEventCard = (individualEvent) => {
+        let {name, page, meta, event, date_time} = individualEvent;
+        if(meta === null) {
+            meta = "None";
+        }
+        return (
+            <div className="container user-events">
+                <p className="feed__go-back" onClick={this.showAllEvents}><FontAwesomeIcon icon={faChevronLeft} /> Back to All Events</p>
+                <p className="login__header">User Event</p>
+                <div className="user-events__card">
+                    <p className="user-events__event">{event}</p>
+                    <p className="user-events__property">User: {name}</p>
+                    <p className="user-events__property">Page: {page}</p>
+                    <p className="user-events__property">Additional Information: {meta}</p>
+                    <p className="user-events__property">Date/Time: {this.formatDate(date_time)}</p>
+                </div>
+            </div>
+        )
+    }
+
+    formatDate = (date) => {
+        let momentDate = Moment(date);
+        let momentDateInAWeek = Moment(new Date());
+        momentDateInAWeek = momentDateInAWeek.subtract(7, "days");
+        if(momentDate > momentDateInAWeek) {
+            momentDate = momentDate.subtract(7,'hours').fromNow();
+        } else {
+            momentDate = momentDate.format("MM.DD.YYYY");
+        }
+        return momentDate;
+    }
+
     render() {
+        let {showSingleEvent, individualEvent} = this.state;
+        if(showSingleEvent) {
+            return this.buildSingleEventCard(individualEvent);
+        }
         return (
             <div className="container user-events">
                 <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
