@@ -4,7 +4,7 @@ import Moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-import {getLatestEvents} from "../../Utilities/EventUtilities.js";
+import {getLatestEvents, getEventsByEvent, getEventsByUser} from "../../Utilities/EventUtilities.js";
 
 class UserEvents extends Component {
     constructor(props) {
@@ -16,17 +16,42 @@ class UserEvents extends Component {
             flipSort: false,
             currentSortCriteria: "",
             showSingleEvent: false,
-            individualEvent: {}
+            individualEvent: {},
+            eventByType: this.getTokenFromParams("event_by_type").length > 0 ? this.getTokenFromParams("event_by_type") : "latest",
+            user: this.getTokenFromParams("user"),
+            event: this.getTokenFromParams("event"),
+            viewingAllEvents: this.getTokenFromParams("event_by_type").length > 0 ? false : true
         }
     }
 
     componentDidMount() {
-        Promise.resolve(getLatestEvents())
+        console.log("component mounted");
+        let eventByType = this.decideEventSet();
+        Promise.resolve(eventByType(this.state))
             .then(res => {
                 this.setState({
                     events: res.data.events
                 })
             })
+    }
+
+    decideEventSet = () => {
+        let eventByType = this.state.eventByType;
+        switch (eventByType) {
+            case "user":
+                return getEventsByUser;
+            case "event":
+                return getEventsByEvent;
+            default:
+                return getLatestEvents;
+        }
+    }
+
+    getTokenFromParams = (name) => {
+        name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(global.location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
     buildEventsTableHeader = () => {
@@ -116,8 +141,13 @@ class UserEvents extends Component {
         return momentDate;
     }
 
+    viewLatestEvents = () => {
+        window.location = "/admin/user-events";
+    }
+
     render() {
-        let {showSingleEvent, individualEvent} = this.state;
+        let {showSingleEvent, individualEvent, viewingAllEvents} = this.state;
+        console.log(viewingAllEvents);
         if(showSingleEvent) {
             return this.buildSingleEventCard(individualEvent);
         }
@@ -125,6 +155,7 @@ class UserEvents extends Component {
             <div className="container user-events">
                 <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <p className="login__header">User Events</p>
+                {viewingAllEvents ? null : <p className="feed__go-back" onClick={this.viewLatestEvents}>View All Events</p>}
                 <div className="user-events__event-table">
                     {this.buildEventsTableHeader()}
                     {this.buildEventsTable()}
