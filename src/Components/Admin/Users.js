@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faEdit, faChartLine } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from '../Loading/Loading.js';
 
@@ -42,6 +42,7 @@ class Users extends Component {
                     <p className="admin-users__user-name">{user.name} - {user.role}</p>
                     <div className="admin-users__user-info">
                         <span className="admin-users__user-email">{user.email}</span>
+                        <Link to={`/admin/user-events?event_by_type=user&user=${user.id}`}><FontAwesomeIcon className="admin-users__user-edit" icon={faChartLine} /></Link>
                         <FontAwesomeIcon className="admin-users__user-edit" icon={faEdit} onClick={() => {this.editUser(user)}}/>
                     </div>
                 </div>

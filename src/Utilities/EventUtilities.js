@@ -26,12 +26,12 @@ export const sendUserEvent = (event, meta = null) => {
     return sendPost(API_URL + eventEndpoint, data);
 }
 
-export const getEventsByUser = (userId) => {
-    return sendGet(API_URL + eventsByUserEndpoint + "?userId=" + userId);
+export const getEventsByUser = (state) => {
+    return sendGet(API_URL + eventsByUserEndpoint + "?userId=" + state.user);
 }
 
-export const getEventsByEvent = (event) => {
-    return sendGet(API_URL + eventsByEventEndpoint + "?event=" + event);
+export const getEventsByEvent = (state) => {
+    return sendGet(API_URL + eventsByEventEndpoint + "?event=" + state.event);
 }
 
 export const getLatestEvents = () => {
