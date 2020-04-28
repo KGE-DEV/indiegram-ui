@@ -4,6 +4,7 @@ import Moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
+import Loading from "../Loading/Loading.js";
 import {getLatestEvents, getEventsByEvent, getEventsByUser} from "../../Utilities/EventUtilities.js";
 
 class UserEvents extends Component {
@@ -21,7 +22,8 @@ class UserEvents extends Component {
             user: this.getTokenFromParams("user"),
             event: this.getTokenFromParams("event"),
             viewingAllEvents: this.getTokenFromParams("event_by_type").length > 0 ? false : true,
-            activePage: 0
+            activePage: 0,
+            loading: true
         }
     }
 
@@ -30,7 +32,8 @@ class UserEvents extends Component {
         Promise.resolve(eventByType(this.state))
             .then(res => {
                 this.setState({
-                    events: res.data.events
+                    events: res.data.events,
+                    loading: false
                 })
             })
     }
@@ -136,7 +139,7 @@ class UserEvents extends Component {
         if(momentDate > momentDateInAWeek) {
             momentDate = momentDate.subtract(7,'hours').fromNow();
         } else {
-            momentDate = momentDate.format("MM.DD.YYYY");
+            momentDate = momentDate.format("MM/DD/YYYY");
         }
         return momentDate;
     }
@@ -165,7 +168,12 @@ class UserEvents extends Component {
     }
 
     render() {
-        let {showSingleEvent, individualEvent, viewingAllEvents} = this.state;
+        let {showSingleEvent, individualEvent, viewingAllEvents, eventByType, events, loading} = this.state;
+        if(loading) {
+            return (
+                <Loading />
+            )
+        }
         if(showSingleEvent) {
             return this.buildSingleEventCard(individualEvent);
         }
@@ -173,7 +181,8 @@ class UserEvents extends Component {
             <div className="container user-events">
                 <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <p className="login__header">User Events</p>
-                {viewingAllEvents ? null : <p className="feed__go-back" onClick={this.viewLatestEvents}>View All Events</p>}
+                {viewingAllEvents ? null : <p className="feed__go-back" onClick={this.viewLatestEvents}>View Latest Events</p>}
+                {eventByType === "user" ? <p className="user-events__last-seen">User last seen: {this.formatDate(events[0].date_time)}</p> : null}
                 <div className="user-events__event-table">
                     {this.buildEventsTableHeader()}
                     {this.buildEventsTable()}
