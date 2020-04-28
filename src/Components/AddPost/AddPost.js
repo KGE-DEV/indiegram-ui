@@ -78,6 +78,13 @@ class AddPost extends Component {
         })
     }
 
+    tryAgain = () => {
+        this.setState({
+            failed: false,
+            success: false
+        })
+    }
+
     render() {        
         let {loading, img, caption, success, failed} = this.state;
 
@@ -88,7 +95,7 @@ class AddPost extends Component {
             return (
                 <div>
                 <p className="add-post__success">Post was submitted successfully!</p>
-                    <p className="home__link" onClick={this.resetPage}>Add Another Post</p>
+                    <p className="home__link center-text" onClick={this.resetPage}>Add Another Post</p>
                 </div>
             )
         }
@@ -96,7 +103,7 @@ class AddPost extends Component {
             return (
                 <div>
                 <p className="add-post__success">Oops. Something went wrong.</p>
-                    <p className="home__link" onClick={this.resetPage}>Try Again</p>
+                    <p className="home__link center-text" onClick={this.tryAgain}>Try Again</p>
                 </div>
             )
         }

@@ -79,6 +79,9 @@ class UserEvents extends Component {
                 <div className="user-events__event-table">
                     {this.buildEventsTableHeader()}
                     {this.buildEventsTable()}
+                    <div className="user-events__pagination">
+                        
+                    </div>
                 </div>
             </div>
         )
