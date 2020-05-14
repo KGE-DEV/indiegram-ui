@@ -1,3 +1,5 @@
+@import "src/_colors.scss";
+
 .login {
     font-family: 'Montserrat', sans-serif;
     &__header {
@@ -29,8 +31,8 @@
         display: block;
         padding: 15px;
         font-size: 20px;
-        background-color: #d6e3dc;
-        color: #ffff;
+        background-color: $pink;
+        color: #555;
         border-radius: 5px;
     }
     
