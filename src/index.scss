@@ -1,8 +1,9 @@
 /* global styles  */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700&display=swap');
+@import "src/_colors.scss";
 
 body {
-    background-color: #fafafa;
+    background-color:  $gray;
 }
 
 .container {
