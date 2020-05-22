@@ -75,6 +75,9 @@ class Pagination extends Component {
         if(direction === "back") {
             pageDestination = currentPage - 1;
         }
+        if(this.props.location) {
+            return this.props.location + pageDestination;
+        }
         return "/feed/" + pageDestination;
     }
 

@@ -1,4 +1,4 @@
-import {sendGet, sendPost} from './DataUtilities.js';
+import {sendGet, sendPost, sendDelete} from './DataUtilities.js';
 
 import env from './env.js';
 
@@ -6,6 +6,7 @@ let {API_URL} = env;
 let paginatedPostsEndpoint = "/post/get/paginated/";
 let postCountEndpoint = "/post/count";
 let createPostEndpoint = "/post/add";
+let deletePostEndpoint = "/post/delete";
 
 export const getPaginatedPosts = (page = 0) => {
     if(page === "") {
@@ -26,4 +27,8 @@ export const createPost = (data) => {
   formData.append("name", name);
   formData.append("type", data.type);
   return sendPost(API_URL + createPostEndpoint, formData);
+}
+
+export const deletePost = (postId) => {
+  return sendDelete(API_URL + deletePostEndpoint, {postId});
 }

@@ -4,6 +4,7 @@ import { Switch, BrowserRouter, Route, Redirect } from 'react-router-dom'
 import AdminMenu from './AdminMenu.js';
 import ApproveInvites from './ApproveInvites.js';
 import AddPost from '../AddPost/AddPost.js';
+import EditPost from './EditPost.js';
 import Users from './Users.js';
 import UserEvents from './UserEvents.js';
 
@@ -28,6 +29,7 @@ class Admin extends Component {
                         <ApproveInvites />
                     </Route>
                     <Route path="/admin/add-post" exact render={(props) => <AddPost {...props} userRole={userRole} />} />
+                    <Route path="/admin/edit-post/:page" exact render={(props) => <EditPost {...props} userRole={userRole} />} />
                     <Route path="/admin/users" exact render={(props) => <Users {...props} userRole={userRole} />} />
                     <Route path="/admin/user-events" exact render={(props) => <UserEvents {...props} userRole={userRole} />} />
                     <Route path="*">

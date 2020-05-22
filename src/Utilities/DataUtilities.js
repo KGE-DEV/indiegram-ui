@@ -19,7 +19,7 @@ export const sendPut = async (path, data, options) => {
     
 export const sendPost = async (path, data, headers) => {
     if(headers === undefined) {
-    headers = {withCredentials: true, mode: 'no-cors'};
+        headers = {withCredentials: true, mode: 'no-cors'};
     }
     return await Axios.post(path, data, headers)
     .catch(err => {
@@ -27,11 +27,11 @@ export const sendPost = async (path, data, headers) => {
     })
 }
     
-export const sendDelete = async (path, options) => {
-    if(options === undefined) {
-    options = {withCredentials: true};
+export const sendDelete = async (path, data, headers) => {
+    if(headers === undefined) {
+        headers = {withCredentials: true, mode: 'no-cors', data};
     }
-    return await Axios.delete(path, options)
+    return await Axios.delete(path, headers)
     .catch(err => {
         return {"error" : err.response, "success": false}
     })
