@@ -49,8 +49,7 @@ class EditPost extends Component {
             this.setState({
                 loading: true,
                 page: currentPage
-            })
-            this.getPosts();
+            }, function() {this.getPosts();});
             window.scrollTo(0,0)
         }
     }
