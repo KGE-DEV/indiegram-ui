@@ -11,6 +11,9 @@ export const sendGet = async (path, options) => {
 }
     
 export const sendPut = async (path, data, options) => {
+    if(options === undefined) {
+        options = {withCredentials: true, mode: 'no-cors',};
+    }
     return Axios.put(path, data, options)
     .catch(err => {
         return {"error": err.response, "success": false}

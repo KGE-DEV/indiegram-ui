@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faEdit, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 import Loading from "../Loading/Loading.js";
 import Pagination from "../Pagination/Pagination.js";
-import {getPaginatedPosts, deletePost} from "../../Utilities/PostUtilities.js";
+import {getPaginatedPosts, deletePost, sendEditPost} from "../../Utilities/PostUtilities.js";
 
 class EditPost extends Component {
     constructor(props) {
@@ -16,7 +17,9 @@ class EditPost extends Component {
             page: this.getPageNumber(),
             deleteConfirmation: false,
             postIdToDelete: null,
-            selectedPost: null
+            editingPost: false,
+            selectedPost: null,
+            updatedPostContent: null
         }
     }
 
@@ -71,7 +74,7 @@ class EditPost extends Component {
                             <img className="edit-post__image" src={post.post_image_url} alt="fuck the blind"/>
                             <p className="edit-post__caption">{this.formatContent(post.post_content)}</p>
                             <div className="edit-post__actions-cont">
-                                <FontAwesomeIcon icon={faEdit} onClick={() => {this.handleEditPostClick(post)}} />
+                                <FontAwesomeIcon icon={faEdit} onClick={() => {this.handlesendEditPostClick(post)}} />
                                 <FontAwesomeIcon icon={faTimesCircle} onClick={() => {this.handleDeletePostClick(post)}}/>
                             </div>
                         </div>
@@ -89,8 +92,34 @@ class EditPost extends Component {
         }
     }
 
-    handleEditPostClick = (post) => {
-        console.log("Editing Post", {post});
+    handlesendEditPostClick = (post) => {
+        this.setState({
+            editingPost: true,
+            selectedPost: post,
+            updatedPostContent: this.formatContent(post.post_content)
+        })
+    }
+
+    handleCaptionUpdate = (evt) => {
+        this.setState({
+            updatedPostContent: evt.target.value
+        })
+    }
+
+    updatePost = () => {
+        let {selectedPost, updatedPostContent} = this.state;
+        this.setState({
+            loading: true
+        });
+        Promise.resolve(sendEditPost({postId: selectedPost.id, postContent: updatedPostContent}))
+        .then(data => {
+            if(data.error) {
+                // window.location.href = "/";
+            } else {
+                this.getPosts();
+                this.cancelUpdate();
+            }
+        })
     }
 
     handleDeletePostClick = (post) => {
@@ -112,28 +141,44 @@ class EditPost extends Component {
                 // window.location.href = "/";
             } else {
                 this.getPosts();
-                this.setState({
-                    deleteConfirmation: false,
-                    postIdToDelete: null,
-                    selectedPost: null
-                })
+                this.cancelUpdate();
             }
         })
     }
 
-    cancelDeletePost = () => {
+    cancelUpdate = () => {
         this.setState({
             deleteConfirmation: false,
             postIdToDelete: null,
-            selectedPost: null
+            selectedPost: null,
+            updatedPostContent: null,
+            editingPost: false
         })
     }
 
     render() {
-        let {loading, page, deleteConfirmation, selectedPost} = this.state;
+        let {loading, page, deleteConfirmation, selectedPost, editingPost, updatedPostContent} = this.state;
         if(loading) {
             return (
                 <Loading />
+            )
+        }
+
+        if(editingPost) {
+            return (
+                <div className="edit-post__delete container">
+                    <p className="edit-post__delete-header">Edit Post</p>
+                    <div className="edit-post__delete-cont">
+                        <div className="edit-post__row edit-post__row--delete">
+                            <img className="edit-post__image edit-post__image--delete" src={selectedPost.post_image_url} alt="fuck the blind"/>
+                            <textarea className="add-post__caption edit-post__textarea" rows="6" value={this.formatContent(updatedPostContent)} onChange={(evt) => {this.handleCaptionUpdate(evt)}} />
+                            <div className="edit-post__delete-actions">
+                                <button className="edit-post__btn edit-post__cancel-delete-btn" onClick={this.updatePost}>Update Post</button>
+                                <button className="edit-post__btn edit-post__delete-btn" onClick={this.cancelUpdate}>Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             )
         }
 
@@ -147,7 +192,7 @@ class EditPost extends Component {
                             <p className="edit-post__caption edit-post__caption--delete">{this.formatContent(selectedPost.post_content)}</p>
                             <div className="edit-post__delete-actions">
                                 <button className="edit-post__btn edit-post__delete-btn" onClick={this.deletePost}>DELETE</button>
-                                <button className="edit-post__btn edit-post__cancel-delete-btn" onClick={this.cancelDeletePost}>Cancel</button>
+                                <button className="edit-post__btn edit-post__cancel-delete-btn" onClick={this.cancelUpdate}>Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -157,6 +202,7 @@ class EditPost extends Component {
         return (
             <React.Fragment>
                 <section className="container edit-post">
+                <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                     <p className="login__header">Edit Post</p>
                     {this.buildPostsList()}
                     <hr />
