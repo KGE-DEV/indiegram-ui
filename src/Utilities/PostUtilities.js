@@ -35,6 +35,5 @@ export const deletePost = (postId) => {
 }
 
 export const sendEditPost = (post) => {
-  console.log(post);
   return sendPut(API_URL + editPostEndpoint, post);
 }
