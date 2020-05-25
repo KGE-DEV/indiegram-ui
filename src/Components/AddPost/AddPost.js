@@ -95,7 +95,8 @@ class AddPost extends Component {
             return (
                 <div>
                 <p className="add-post__success">Post was submitted successfully!</p>
-                    <p className="home__link center-text" onClick={this.resetPage}>Add Another Post</p>
+                <p className="add-post__success--message">Your post is being processed. It will be availble to be viewed shortly. If there was an error, you will be notified via email.</p>
+                <p className="add-post__add-another center-text" onClick={this.resetPage}>Add Another Post</p>
                 </div>
             )
         }
