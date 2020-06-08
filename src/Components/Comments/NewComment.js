@@ -32,10 +32,10 @@ class NewComment extends Component {
         this.setState({
             addingComment: true
         })
-        let data = this.formatCommentData();
-        Promise.resolve(postComment(data))
+        let commentData = this.formatCommentData();
+        Promise.resolve(postComment(commentData))
             .then(data => {
-                sendUserEvent(COMMENT_ADDED_EVENT, this.state.comment);
+                sendUserEvent(COMMENT_ADDED_EVENT, this.state.comment + "-" + commentData.postId);
                 this.props.updateComment();
                 this.setState({
                     comment: "",
