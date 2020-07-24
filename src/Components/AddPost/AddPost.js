@@ -51,7 +51,7 @@ class AddPost extends Component {
             loading: true
         })
         evt.preventDefault();
-        Promise.resolve(createPost(this.state))
+        Promise.resolve(createPost(this.state, this.reportUploadProgress))
             .then(response => {                
                 let success = response.data;
                 if(typeof(success) !== "undefined") {
@@ -85,11 +85,16 @@ class AddPost extends Component {
         })
     }
 
-    render() {        
-        let {loading, img, caption, success, failed} = this.state;
+    reportUploadProgress = (progressEvent) => {
+        this.setState({
+            uploadProgress: progressEvent
+        })
+    }
 
+    render() {        
+        let {loading, img, caption, success, failed, uploadProgress} = this.state;
         if(loading) {
-            return <Loading />;
+            return <Loading uploadProgress={uploadProgress}/>;
         }
         if(success) {
             return (
