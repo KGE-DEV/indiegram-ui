@@ -20,14 +20,14 @@ export const getPostCount = () => {
   return sendGet(API_URL + postCountEndpoint);
 }
 
-export const createPost = (data) => {
+export const createPost = (data, reportUploadProgress) => {
   let formData = new FormData();
   let name = data.name.split(' ').join('');
   formData.append("caption", data.caption);
   formData.append("file", data.file);
   formData.append("name", name);
   formData.append("type", data.type);
-  return sendPost(API_URL + createPostEndpoint, formData);
+  return sendPost(API_URL + createPostEndpoint, formData, null, reportUploadProgress);
 }
 
 export const deletePost = (postId) => {

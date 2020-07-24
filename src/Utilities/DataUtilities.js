@@ -20,9 +20,16 @@ export const sendPut = async (path, data, options) => {
     });
 }
     
-export const sendPost = async (path, data, headers) => {
-    if(headers === undefined) {
+export const sendPost = async (path, data, headers, onProgress = false) => {
+    if(headers === undefined || headers === null) {
         headers = {withCredentials: true, mode: 'no-cors'};
+    }
+    if(onProgress) {
+        headers.onUploadProgress = (progressEvent) => {
+            if (progressEvent.lengthComputable) {
+                onProgress(progressEvent);
+             }
+        }
     }
     return await Axios.post(path, data, headers)
     .catch(err => {
