@@ -1,9 +1,12 @@
+@import "src/_colors.scss";
+
 .loading {
     height: 70vh;
     &__text {
         text-align: center;
         font-size: 20px;
         font-family: 'Montserrat', sans-serif;
+        margin: 20px auto 0;
     }
 
     &__icon {
@@ -16,6 +19,27 @@
         animation: pulse 5s infinite;
         max-width: 500px;
         max-height: 500px;
+    }
+
+    &__loading_bar-cont {
+        height: 40px;
+        width: 75%;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+    &__loading_bar {
+        width: 50%;
+        height: 100%;
+        background-color: $blue;
+    }
+
+    &__loaded_percent {
+        line-height: 2;
+        position: absolute;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
     }
 }
 
