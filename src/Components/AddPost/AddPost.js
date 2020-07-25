@@ -116,18 +116,19 @@ class AddPost extends Component {
         return (
             <div className="container add-post">
                 <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
-                <p className="login__header">Add Post</p>
-                <label className="add-post__input-label">
+                <p className="login__header add-post__header">Add Post</p>
+                <label className="add-post__input-label add-post__button">
                     {img ? "Choose Another Image" : "Choose An Image"}
                     <input type="file" accept="image/*" className="add-post__input" onChange={this.handleFileOnChange}/>
                 </label>
+                <textarea className="add-post__caption" placeholder="Post Caption" rows="6" value={caption} onChange={this.handleTextAreaChange}></textarea>
                 {img ? 
                     <img className="add-post__target" alt="" src={this.state.img}/>
                     :
                     null
                 }
-                <textarea className="add-post__caption" placeholder="Caption" rows="6" value={caption} onChange={this.handleTextAreaChange}></textarea>
-                {img && caption.length > 0 && <button className="add-post__submit" onClick={this.handleSubmitClick}>Submit Image</button>}
+                
+                {img && caption.length > 0 && <button className="add-post__submit add-post__button" onClick={this.handleSubmitClick}>Submit Image</button>}
             </div>
         )
     }
