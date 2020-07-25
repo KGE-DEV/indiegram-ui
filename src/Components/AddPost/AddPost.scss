@@ -1,5 +1,11 @@
+@import "src/_colors.scss";
+
 .add-post {
     font-family: 'Montserrat', sans-serif;
+
+    &__header {
+        margin: 10px auto;
+    }
     &__input {
         width: 0.1px;
         height: 0.1px;
@@ -10,22 +16,12 @@
     }
     
     &__input-label {
-        font-size: 1.25em;
-        font-weight: 700;
-        color: white;
-        background-color: #d66189;
-        display: block;
-        width: 75%;
-        margin: 10px auto;
-        text-align: center;
-        padding: 10px;
-        border-radius: 20px;
+        background-color: $darkPink;
     }
     
     &__target {
         margin: 10px auto;
         display: block;
-        border: 2px black solid;
         width: 100%;
     }
     
@@ -44,16 +40,11 @@
     }
     
     &__submit {
-        font-size: 2.25em;
-        font-weight: 700;
-        color: white;
-        background-color: #089ad6;
-        display: block;
-        width: 90%;
-        margin: 10px auto;
-        text-align: center;
-        padding: 10px;
-        border-radius: 20px;
+        background-color: $blue;
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        right: 0;
     }
     
     &__success {
@@ -72,5 +63,17 @@
 
     &__add-another {
         font-size: 40px;
+    }
+
+    &__button {
+        font-size: 1.25em;
+        font-weight: 700;
+        color: white;
+        display: block;
+        width: 75%;
+        margin: 10px auto;
+        text-align: center;
+        padding: 10px;
+        border: none;
     }
 }
