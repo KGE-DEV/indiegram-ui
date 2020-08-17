@@ -18,6 +18,7 @@ class AddPost extends Component {
              file: null,
              name: null,
              type: null,
+             isPrivate: false,
              loading: false,
              success: false,
              failed: false
@@ -69,6 +70,12 @@ class AddPost extends Component {
             })
     }
 
+    handlePrivateToggle = () => {
+        this.setState({
+            isPrivate: !this.state.isPrivate
+        })
+    }
+
     resetPage = () => {
         this.setState({
             failed: false,
@@ -92,7 +99,10 @@ class AddPost extends Component {
     }
 
     render() {        
-        let {loading, img, caption, success, failed, uploadProgress} = this.state;
+        let {loading, img, caption, isPrivate, success, failed, uploadProgress} = this.state;
+
+        let isPrivateLabel = isPrivate ? "Yes" : "No";
+        let isPrivateClass = isPrivate ? "add-post__private-cont--yes" : "add-post__private-cont--no";
         if(loading) {
             return <Loading uploadProgress={uploadProgress}/>;
         }
@@ -122,6 +132,10 @@ class AddPost extends Component {
                     <input type="file" accept="image/*" className="add-post__input" onChange={this.handleFileOnChange}/>
                 </label>
                 <textarea className="add-post__caption" placeholder="Post Caption" rows="6" value={caption} onChange={this.handleTextAreaChange}></textarea>
+                <div className={"add-post__private-cont " + isPrivateClass} onClick={this.handlePrivateToggle}>
+                    <label className="add-post__private-label">Make this post private?</label>
+                    <p className="add-post__private-indicator">{isPrivateLabel}</p>
+                </div>
                 {img ? 
                     <img className="add-post__target" alt="" src={this.state.img}/>
                     :

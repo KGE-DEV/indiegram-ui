@@ -5,7 +5,7 @@ import env from './env.js';
 let {API_URL} = env;
 let paginatedPostsEndpoint = "/post/get/paginated/";
 let postCountEndpoint = "/post/count";
-let createPostEndpoint = "/post/add";
+let createPostEndpoint = "/post/v2/add";
 let deletePostEndpoint = "/post/delete";
 let editPostEndpoint = "/post/edit";
 
@@ -27,6 +27,7 @@ export const createPost = (data, reportUploadProgress) => {
   formData.append("file", data.file);
   formData.append("name", name);
   formData.append("type", data.type);
+  formData.append("isPrivate", data.isPrivate);
   return sendPost(API_URL + createPostEndpoint, formData, null, reportUploadProgress);
 }
 
