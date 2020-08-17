@@ -75,5 +75,21 @@
         text-align: center;
         padding: 10px;
         border: none;
+        max-width: 300px;
+    }
+
+    &__private-cont {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 40px;
+    }
+
+    &__private-cont--yes &__private-indicator{
+        color: green; 
+    }
+
+    &__private-cont--no &__private-indicator{
+        color: red; 
     }
 }
