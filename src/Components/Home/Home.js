@@ -30,7 +30,11 @@ class Home extends Component {
             return <Loading />;
         }
         if(userRole && userRole !== "unauthorized") {
-            return <Redirect to="/feed/1" />;
+            if(localStorage && localStorage.lastVisitedFeed) {
+                return <Redirect to={"/feed/" + localStorage.lastVisitedFeed} />;
+            } else {
+                return <Redirect to="/feed/1" />;
+            }
         }
         return (
             <div className="container home">
