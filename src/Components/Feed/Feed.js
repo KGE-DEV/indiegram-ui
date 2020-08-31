@@ -61,6 +61,7 @@ class Feed extends Component {
                 })
             })
             window.scrollTo(0,0)
+            if(this.props.page > 1) { localStorage.lastVisitedFeed = this.props.page }
         }
     }
 
@@ -97,13 +98,6 @@ class Feed extends Component {
         )
     }
 
-    getUrlParameter(name) {
-        name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(window.location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    };
-
     showIndividualPost = (post) => {
         sendUserEvent(POST_VIEWED_EVENT, post.post_id);
         this.setState({
@@ -122,6 +116,7 @@ class Feed extends Component {
     render() {
         let {posts, loading, showIndividualPost, individualPost} = this.state;
         let {userRole, page} = this.props;
+        console.log(userRole)
         if(userRole === "unauthorized") {
             return <Redirect to="/" />
         }
@@ -147,6 +142,7 @@ class Feed extends Component {
             <section className="feed container">
                 {loading ? <Loading /> : null}
                 {!loading && userRole === "admin" ? <Link to="/admin"><img src={adminButton} className="feed__admin-button" alt="admin button"/></Link> : null}
+                {!loading && userRole === "subscriber" ? <img src={adminButton} className="feed__admin-button" alt="admin button"/> : null}
                 {this.buildFeedPosts(posts)}
                 {!loading && <Pagination page={page} />}
             </section>

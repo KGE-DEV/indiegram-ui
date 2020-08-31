@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import { Switch, BrowserRouter, Route, Redirect } from 'react-router-dom'
 
+import Loading from './Components/Loading/Loading.js';
 import Header from './Components/Header/Header.js';
 import FeedContainer from './Components/Feed/FeedContainer.js';
 import Invite from './Components/Invite/Invite.js';
@@ -20,7 +21,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      userRole: "unauthorized"
+      userRole: null
     }
   }
 
@@ -63,6 +64,17 @@ class App extends Component {
 
   render() {
     let {userRole} = this.state;
+    if(!userRole) {
+      return (
+        <React.Fragment>
+          <BrowserRouter>
+            <Header />
+            <Loading />
+            <Footer />
+          </BrowserRouter>
+        </React.Fragment>
+      )
+    }
     return (
       <React.Fragment>
         <BrowserRouter>
