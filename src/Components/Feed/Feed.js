@@ -116,7 +116,7 @@ class Feed extends Component {
     render() {
         let {posts, loading, showIndividualPost, individualPost} = this.state;
         let {userRole, page} = this.props;
-        console.log(userRole)
+        
         if(userRole === "unauthorized") {
             return <Redirect to="/" />
         }
