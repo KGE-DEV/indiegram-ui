@@ -11,12 +11,14 @@ class Comments extends Component {
 
         this.state = {
             comments: null,
-            countOfUpdatedComments: 0
+            countOfUpdatedComments: 0,
+            visibleCommentLimit: 2,
+            showAllComments: false
         }
     }
 
     componentDidMount() {
-        Promise.resolve(getComments(this.props.post_id, this.props.showAllComments))
+        Promise.resolve(getComments(this.props.post_id))
             .then(data => {
                 this.setState({
                     comments: data.data.comments
@@ -25,14 +27,31 @@ class Comments extends Component {
     }
 
     buildComments(comments) {
-        return comments.map(comment => {
-            return <p className="comments__comment" key={comment.id}><b className="comments__name" >{comment.name} </b>{comment.comment}</p>
+        let {visibleCommentLimit, showAllComments} = this.state;
+        return comments.map((comment, index) => {
+            if(index > visibleCommentLimit && !showAllComments && !this.props.individualPost) {
+                return null;
+            } else {
+                return <p className="comments__comment" key={comment.id}><b className="comments__name" >{comment.name} </b>{comment.comment}</p>
+            }
+        })
+    }
+
+    handleShowAllCommentsClick = () => {
+        this.setState({
+            showAllComments: true
+        })
+    }
+    
+    handleHideAllCommentsClick = () => {
+        this.setState({
+            showAllComments: false
         })
     }
 
     componentDidUpdate() {
         if(this.props.newComments > this.state.countOfUpdatedComments) {
-            Promise.resolve(getComments(this.props.post_id, this.props.showAllComments))
+            Promise.resolve(getComments(this.props.post_id))
             .then(data => {
                 this.setState({
                     comments: data.data.comments,
@@ -43,13 +62,17 @@ class Comments extends Component {
     }
 
     render() {
-        if(!this.state.comments) {
+        let {comments, showAllComments} = this.state;
+
+        if(!comments) {
             return null;
         }
-        let {comments} = this.state;
+
         return (
             <div className="comments">
                 {this.buildComments(comments)}
+                {!showAllComments && comments.length > 3 && !this.props.individualPost && <p className="comments__show-more" onClick={this.handleShowAllCommentsClick}>Show more...</p>}
+                {showAllComments && !this.props.individualPost && <p className="comments__show-more" onClick={this.handleHideAllCommentsClick}>Show less...</p>}
             </div>
         )
     }
