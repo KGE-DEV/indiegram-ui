@@ -28,6 +28,8 @@ export const createPost = (data, reportUploadProgress) => {
   formData.append("name", name);
   formData.append("type", data.type);
   formData.append("isPrivate", data.isPrivate);
+  formData.append("height", data.height);
+  formData.append("width", data.width);
   return sendPost(API_URL + createPostEndpoint, formData, null, reportUploadProgress);
 }
 
