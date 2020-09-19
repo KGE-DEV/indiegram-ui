@@ -28,10 +28,23 @@ class AddPost extends Component {
     handleFileOnChange = (evt) => {
         let fr = new FileReader();
         let that = this;
-        fr.onload = function(e) { 
+        fr.onload = function() { 
             that.setState({
                 img: this.result
             })
+
+            var img = new Image();
+
+            img.onload = function() {
+                that.setState({
+                    width: img.width,
+                    height: img.height
+                })
+            };
+        
+            img.src = this.result; // is the data URL because called with readAsDataURL
+
+
         };
         fr.readAsDataURL(evt.target.files[0]);
         this.setState({
