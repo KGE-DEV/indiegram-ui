@@ -61,7 +61,6 @@ class Feed extends Component {
                 })
             })
             window.scrollTo(0,0)
-            if(this.props.page > 1) { localStorage.lastVisitedFeed = this.props.page }
         }
     }
 

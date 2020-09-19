@@ -42,9 +42,7 @@ class AddPost extends Component {
                 })
             };
         
-            img.src = this.result; // is the data URL because called with readAsDataURL
-
-
+            img.src = this.result;
         };
         fr.readAsDataURL(evt.target.files[0]);
         this.setState({
