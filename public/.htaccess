@@ -3,6 +3,8 @@
 ### Rewrite Rules
 RewriteEngine On
 RewriteBase /
+RewriteCond %{HTTPS} !=on
+RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
 ### Rewrite Rules - END
 
 ### Redirect Non-Existing URLs
