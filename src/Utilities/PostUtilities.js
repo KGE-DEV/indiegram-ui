@@ -4,6 +4,7 @@ import env from './env.js';
 
 let {API_URL} = env;
 let paginatedPostsEndpoint = "/post/get/paginated/";
+let individualPostEndpoint = "/post/get/";
 let postCountEndpoint = "/post/count";
 let createPostEndpoint = "/post/v2/add";
 let deletePostEndpoint = "/post/delete";
@@ -14,6 +15,10 @@ export const getPaginatedPosts = (page = 0) => {
       page = 0;
     }
     return sendGet(API_URL + paginatedPostsEndpoint + page)
+}
+
+export const getIndividualPost = (postId) => {
+  return sendGet(API_URL + individualPostEndpoint + postId)
 }
 
 export const getPostCount = () => {

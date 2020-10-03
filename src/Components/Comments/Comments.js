@@ -18,7 +18,7 @@ class Comments extends Component {
     }
 
     componentDidMount() {
-        Promise.resolve(getComments(this.props.post_id))
+        Promise.resolve(getComments(this.props.postId))
             .then(data => {
                 this.setState({
                     comments: data.data.comments
@@ -51,7 +51,7 @@ class Comments extends Component {
 
     componentDidUpdate() {
         if(this.props.newComments > this.state.countOfUpdatedComments) {
-            Promise.resolve(getComments(this.props.post_id))
+            Promise.resolve(getComments(this.props.postId))
             .then(data => {
                 this.setState({
                     comments: data.data.comments,
