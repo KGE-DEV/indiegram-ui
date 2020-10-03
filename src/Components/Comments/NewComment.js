@@ -24,7 +24,7 @@ class NewComment extends Component {
     formatCommentData() {
         return {
             comment: this.state.comment,
-            postId: this.props.post_id
+            postId: this.props.postId
         }
     }
 

@@ -5,6 +5,7 @@ import { Switch, BrowserRouter, Route, Redirect } from 'react-router-dom'
 import Loading from './Components/Loading/Loading.js';
 import Header from './Components/Header/Header.js';
 import FeedContainer from './Components/Feed/FeedContainer.js';
+import PostContainer from './Components/Post/PostContainer.js';
 import Invite from './Components/Invite/Invite.js';
 import Login from './Components/Login/Login.js';
 import ForgotPassword from './Components/ForgotPassword/ForgotPassword.js';
@@ -81,6 +82,7 @@ class App extends Component {
           <Header />
           <Switch>
             <Route path="/feed/:page" exact render={(props) => <FeedContainer {...props} userRole={userRole} />}/>
+            <Route path="/post/:postId" exact render={(props) => <PostContainer {...props} userRole={userRole} />}/>
             <Route path="/invite" exact render={(props) => <Invite {...props} userRole={userRole} />} />
             <Route path="/forgot-password" exact render={(props) => <ForgotPassword {...props} userRole={userRole} />} />
             <Route path="/reset-password" exact render={(props) => <ResetPassword {...props} userRole={userRole} updateUserRole={this.updateUserRole} />} />
