@@ -20,16 +20,21 @@ class Login extends Component {
             error: false,
             loading: true
         }
+
+        this.timeout = null;
     }
 
     componentDidMount() {
         sendUserEvent(PAGE_VIEWED_EVENT);
-        setTimeout(() => {
+        this.timeout = setTimeout(() => {
             this.setState({
                 loading: false
             })
         }, 1500)
+    }
 
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
     }
 
     handlePasswordInputChange = (evt) => {
