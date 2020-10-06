@@ -8,6 +8,7 @@ import './Post.scss';
 
 import {getIndividualPost} from "../../Utilities/PostUtilities.js";
 import {sendUserEvent, POST_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
+import {TWO_MINUTES_IN_MILLISECONDS, PAGE_POSITION, setWithExpiry} from '../../Utilities/LocalStorageUtilities';
 
 class Post extends Component {
 
@@ -78,6 +79,10 @@ class Post extends Component {
         history.push(window.location.href);
     }
 
+    savePagePosition = () => {
+        setWithExpiry(PAGE_POSITION, document.documentElement.scrollTop, TWO_MINUTES_IN_MILLISECONDS);
+    }
+
     render() {
         let {post_content, post_image_url, date_time_added, postId, postClass, individualPost, handleImageLoaded} = this.props;
         if(typeof(post_content) === "undefined") {
@@ -93,7 +98,7 @@ class Post extends Component {
                 </React.Fragment>
                 : 
                 <React.Fragment>
-                    <Link to={"/post/" + postId}>
+                    <Link to={"/post/" + postId} onClick={this.savePagePosition}>
                         <img className="post__image" src={post_image_url} alt="" onLoad={handleImageLoaded}/>
                     </Link>
                 </React.Fragment>}

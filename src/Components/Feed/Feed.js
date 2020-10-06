@@ -6,6 +6,7 @@ import Pagination from '../Pagination/Pagination.js';
 import Loading from '../Loading/Loading.js';
 import {getPaginatedPosts} from '../../Utilities/PostUtilities.js';
 import {sendUserEvent, PAGE_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
+import {PAGE_POSITION, getWithExpiry} from '../../Utilities/LocalStorageUtilities.js';
 
 import './Feed.scss';
 import adminButton from './assets/img/admin-button.png';
@@ -66,6 +67,8 @@ class Feed extends Component {
                 this.setState({
                     postClass: "post",
                     loading: false
+                }, () => {
+                    this.scrollToScrollPosition();
                 })
             }
         });
@@ -91,6 +94,13 @@ class Feed extends Component {
                     )
             })
         )
+    }
+
+    scrollToScrollPosition() {
+        let pagePosition = getWithExpiry(PAGE_POSITION);
+        if(pagePosition) {
+            window.scrollTo(0, pagePosition);
+        }
     }
 
     render() {
