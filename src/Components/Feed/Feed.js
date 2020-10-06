@@ -68,7 +68,7 @@ class Feed extends Component {
                     postClass: "post",
                     loading: false
                 }, () => {
-                    this.scrollToScrollPosition();
+                    this.scrollToPagePosition();
                 })
             }
         });
@@ -96,7 +96,7 @@ class Feed extends Component {
         )
     }
 
-    scrollToScrollPosition() {
+    scrollToPagePosition() {
         let pagePosition = getWithExpiry(PAGE_POSITION);
         if(pagePosition) {
             window.scrollTo(0, pagePosition);
