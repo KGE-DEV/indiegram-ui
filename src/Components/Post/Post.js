@@ -63,6 +63,8 @@ class Post extends Component {
                         post_content: post.post_content,
                         post_image_url: post.post_image_url,
                         date_time_added: post.date_time_added
+                    }, () => {
+                        this.scrollToTop();
                     })
                 }
             })
@@ -81,6 +83,10 @@ class Post extends Component {
 
     savePagePosition = () => {
         setWithExpiry(PAGE_POSITION, document.documentElement.scrollTop, TWO_MINUTES_IN_MILLISECONDS);
+    }
+
+    scrollToTop = () => {
+        window.scrollTo(0,0);
     }
 
     render() {
