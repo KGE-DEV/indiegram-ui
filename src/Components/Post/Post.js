@@ -25,10 +25,10 @@ class Post extends Component {
 
     formatContent = (content) => {
         try {
-            return decodeURIComponent(content.replace(/\+/g, '%20'));
+          content = escape(content.replaceAll("\n", "<br>"));
+          return decodeURIComponent(content.replace(/\+/g, '%20'));
         } catch (error) {
-            console.log(error);
-            return content;
+          return content;
         }
     }
 
@@ -113,7 +113,7 @@ class Post extends Component {
                 
                 <div className="post__content-cont">
                     <p className="post__date">{this.formatDate(date_time_added)}</p>
-                    <textarea className="post__content" readOnly defaultValue={this.formatContent(post_content)}></textarea>
+                    <p className="post__content" dangerouslySetInnerHTML={{ __html: this.formatContent(post_content)}}></p>
                     <Comments postId={postId} newComments={this.state.newComments} individualPost={individualPost}/>
                     <hr />
                     <NewComment postId={postId} updateComment={this.updateComment} />
