@@ -23,11 +23,16 @@
         font-family: 'Montserrat', sans-serif;
     }
 
-    &__content {
+    &__content, &__content:focus {
         margin: 5px 0 10px;
         font-weight: 300;
         line-height: 1.2;
+        width: 100%;
+        border: none;
+        resize: none;
+        outline: none;
     }
+
 
     &__go-back {
         font-family: 'Montserrat', sans-serif;

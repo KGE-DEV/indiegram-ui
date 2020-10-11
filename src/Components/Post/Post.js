@@ -27,6 +27,7 @@ class Post extends Component {
         try {
             return decodeURIComponent(content.replace(/\+/g, '%20'));
         } catch (error) {
+            console.log(error);
             return content;
         }
     }
@@ -112,7 +113,7 @@ class Post extends Component {
                 
                 <div className="post__content-cont">
                     <p className="post__date">{this.formatDate(date_time_added)}</p>
-                    <p className="post__content">{this.formatContent(post_content)}</p>
+                    <textarea className="post__content" readOnly defaultValue={this.formatContent(post_content)}></textarea>
                     <Comments postId={postId} newComments={this.state.newComments} individualPost={individualPost}/>
                     <hr />
                     <NewComment postId={postId} updateComment={this.updateComment} />
