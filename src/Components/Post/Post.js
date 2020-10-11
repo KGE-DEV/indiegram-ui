@@ -25,7 +25,7 @@ class Post extends Component {
 
     formatContent = (content) => {
         try {
-          // content = escape(content.replaceAll("\n", "<br>"));
+          content = content.replaceAll("\n", "<br>");
           return decodeURIComponent(content.replace(/\+/g, '%20'));
         } catch (error) {
           return content;
