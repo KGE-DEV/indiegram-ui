@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
 import { Link } from 'react-router-dom';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 import Comments from '../Comments/Comments.js';
 import NewComment from '../Comments/NewComment.js';
@@ -42,6 +44,13 @@ class Post extends Component {
             momentDate = momentDate.format("MM.DD.YYYY");
         }
         return "Posted " + momentDate;
+    }
+
+    parseImageUrls = (urlStrings) => {
+      if(urlStrings) {
+        return urlStrings.split(",");
+      }
+      return [];
     }
 
     updateComment = () => {
@@ -90,27 +99,65 @@ class Post extends Component {
         window.scrollTo(0,0);
     }
 
+    buildPostCarousel = (urls, individualPost) => {
+      let {handleImageLoaded, postId} = this.props;
+      if(individualPost) {
+        return (
+          <Carousel>
+            {urls.map(url => {
+              return (
+                  <img key={url} className="post__image" src={url} alt="" onLoad={handleImageLoaded} />
+              )
+            })}
+          </Carousel>
+        )
+      }
+
+      return (
+        <Link to={"/post/" + postId} onClick={this.savePagePosition}>
+          <Carousel>
+            {urls.map(url => {
+              return (<img key={url} className="post__image" src={url} alt="" onLoad={handleImageLoaded}/>)
+            })}
+          </Carousel>
+        </Link>
+      )
+    }
+
+    buildSingleImage = (url, postId, individualPost) => {
+      if(individualPost) {
+        return (<img className="post__image" src={url} alt="" onLoad={this.props.handleImageLoaded} />)
+      }
+      return (
+        <Link to={"/post/" + postId} onClick={this.savePagePosition}>
+          <img key={url} className="post__image" src={url} alt="" onLoad={this.props.handleImageLoaded}/>
+        </Link>
+      )
+    }
+
     render() {
-        let {post_content, post_image_url, date_time_added, postId, postClass, individualPost, handleImageLoaded} = this.props;
+        let {
+          post_content, 
+          post_image_url, 
+          date_time_added, 
+          postId, 
+          postClass, 
+          individualPost
+        } = this.props;
         if(typeof(post_content) === "undefined") {
             post_content = this.state.post_content;
             post_image_url = this.state.post_image_url;
             date_time_added = this.state.date_time_added;
         }
+        if(post_image_url === null) {
+          return null;
+        }
+        post_image_url = this.parseImageUrls(post_image_url, individualPost);
         return (
             <div className={postClass} >
-                {individualPost ?
-                <React.Fragment>
-                    <img className="post__image" src={post_image_url} alt="" onLoad={handleImageLoaded} />
-                </React.Fragment>
-                : 
-                <React.Fragment>
-                    <Link to={"/post/" + postId} onClick={this.savePagePosition}>
-                        <img className="post__image" src={post_image_url} alt="" onLoad={handleImageLoaded}/>
-                    </Link>
-                </React.Fragment>}
-                
-                
+              {post_image_url.length > 1
+              ? this.buildPostCarousel(post_image_url, individualPost):
+                this.buildSingleImage(post_image_url[0], postId, individualPost)}
                 <div className="post__content-cont">
                     <p className="post__date">{this.formatDate(date_time_added)}</p>
                     <p className="post__content" dangerouslySetInnerHTML={{ __html: this.formatContent(post_content)}}></p>
