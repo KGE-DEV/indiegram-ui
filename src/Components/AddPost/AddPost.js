@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
-import {createPost} from '../../Utilities/PostUtilities.js';
+import {createPostV2} from '../../Utilities/PostUtilities.js';
 
 import "./AddPost.scss";
 
@@ -21,7 +21,9 @@ class AddPost extends Component {
              isPrivate: false,
              loading: false,
              success: false,
-             failed: false
+             failed: false,
+             imgArray: [],
+             files: null
          }
     }
 
@@ -29,6 +31,7 @@ class AddPost extends Component {
         let fr = new FileReader();
         let that = this;
         fr.onload = function() { 
+          console.log(this);
             that.setState({
                 img: this.result
             })
@@ -50,6 +53,35 @@ class AddPost extends Component {
             name: evt.target.files[0].name,
             type: evt.target.files[0].type
         })
+        console.log(evt.target.files);
+    }
+
+    handleFileOnChangeV2 = (evt) => {
+      let imgArray = this.state.imgArray;
+      let files = evt.target.files;
+      for(let i = 0, a = evt.target.files,c = a.length;i<c;i++) {
+        let fr = new FileReader();
+        let that = this;
+
+        let name = evt.target.files[i].name.split(' ').join('');;
+        let type = evt.target.files[i].type;
+        fr.onload = function() { 
+          let img = new Image();
+          let result = this.result;
+          
+          img.onload = function() {
+            imgArray.push({width: img.width, height: img.height, name, type, img: result, file: files[i]})
+            that.setState({
+              imgArray,
+              files
+            })
+          };
+      
+          img.src = this.result;
+        };
+
+        fr.readAsDataURL(evt.target.files[i]);
+      }
     }
 
     handleTextAreaChange = (evt) => {
@@ -63,7 +95,7 @@ class AddPost extends Component {
             loading: true
         })
         evt.preventDefault();
-        Promise.resolve(createPost(this.state, this.reportUploadProgress))
+        Promise.resolve(createPostV2(this.state, this.reportUploadProgress))
             .then(response => {                
                 let success = response.data;
                 if(typeof(success) !== "undefined") {
@@ -79,6 +111,12 @@ class AddPost extends Component {
                     loading: false
                 })
             })
+    }
+
+    buildImagePreviews = (imgArray) => {
+      return imgArray.map(img => {
+        return <img key={img.file.size} className="add-post__target" alt="" src={img.img}/>
+      })
     }
 
     handlePrivateToggle = () => {
@@ -110,7 +148,7 @@ class AddPost extends Component {
     }
 
     render() {        
-        let {loading, img, caption, isPrivate, success, failed, uploadProgress} = this.state;
+        let {loading, img, caption, isPrivate, success, failed, uploadProgress, imgArray} = this.state;
 
         let isPrivateLabel = isPrivate ? "Yes" : "No";
         let isPrivateClass = isPrivate ? "add-post__private-cont--yes" : "add-post__private-cont--no";
@@ -140,20 +178,20 @@ class AddPost extends Component {
                 <p className="login__header add-post__header">Add Post</p>
                 <label className="add-post__input-label add-post__button">
                     {img ? "Choose Another Image" : "Choose An Image"}
-                    <input type="file" accept="image/*" className="add-post__input" onChange={this.handleFileOnChange}/>
+                    <input type="file" accept="image/*" multiple className="add-post__input" onChange={this.handleFileOnChangeV2}/>
                 </label>
                 <textarea className="add-post__caption" placeholder="Post Caption" rows="6" value={caption} onChange={this.handleTextAreaChange}></textarea>
                 <div className={"add-post__private-cont " + isPrivateClass} onClick={this.handlePrivateToggle}>
                     <label className="add-post__private-label">Make this post private?</label>
                     <p className="add-post__private-indicator">{isPrivateLabel}</p>
                 </div>
-                {img ? 
-                    <img className="add-post__target" alt="" src={this.state.img}/>
+                {imgArray.length > 0 ? 
+                    this.buildImagePreviews(imgArray)
                     :
                     null
                 }
                 
-                {img && caption.length > 0 && <button className="add-post__submit add-post__button" onClick={this.handleSubmitClick}>Submit Image</button>}
+                {imgArray.length > 0 && caption.length > 0 && <button className="add-post__submit add-post__button" onClick={this.handleSubmitClick}>Submit Image</button>}
             </div>
         )
     }
