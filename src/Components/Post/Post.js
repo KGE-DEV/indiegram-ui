@@ -106,7 +106,9 @@ class Post extends Component {
           <Carousel>
             {urls.map(url => {
               return (
-                  <img key={url} className="post__image" src={url} alt="" onLoad={handleImageLoaded} />
+                <div className="post__flex-cont" key={url}>
+                  <img className="post__image" src={url} alt="" onLoad={handleImageLoaded}/>
+                </div>
               )
             })}
           </Carousel>
@@ -117,7 +119,11 @@ class Post extends Component {
         <Link to={"/post/" + postId} onClick={this.savePagePosition}>
           <Carousel>
             {urls.map(url => {
-              return (<img key={url} className="post__image" src={url} alt="" onLoad={handleImageLoaded}/>)
+              return (
+                <div className="post__flex-cont" key={url}>
+                  <img className="post__image" src={url} alt="" onLoad={handleImageLoaded}/>
+                </div>
+              )
             })}
           </Carousel>
         </Link>

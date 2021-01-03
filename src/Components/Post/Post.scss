@@ -39,6 +39,12 @@
         cursor: pointer;
     }
 
+    &__flex-cont {
+      display: flex;
+      align-items: center;
+      height: 97%;
+    }
+
     hr {
         border-top: grey 1px;
     }
@@ -52,4 +58,15 @@
   font-family: 'Montserrat', sans-serif;
   color: #000!important;
   text-shadow: none!important;
+}
+
+.carousel .slide {
+  background-color: #fff!important;
+}
+.carousel .control-dots {
+  bottom: 10px !important;
+}
+
+.carousel .control-dots .dot {
+  background-color: #000;
 }

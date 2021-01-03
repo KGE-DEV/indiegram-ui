@@ -42,10 +42,12 @@ export const createPost = (data, reportUploadProgress) => {
 export const createPostV2 = (data, reportUploadProgress) => {
   let formData = new FormData();
   formData.append("caption", data.caption);
-  formData.append("file", data.files);
+  data.imgArray.forEach(img => {
+    formData.append("file", img.file);
+  })
   formData.append("isPrivate", data.isPrivate);
-  formData.append("fileData", JSON.stringify(data.fileData));
-  
+  formData.append("fileData", JSON.stringify(data.imgData));
+
   return sendPost(API_URL + createPostEndpointV3, formData, null, reportUploadProgress);
 }
 

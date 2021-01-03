@@ -57,7 +57,8 @@ class AddPost extends Component {
     }
 
     handleFileOnChangeV2 = (evt) => {
-      let imgArray = this.state.imgArray;
+      let imgArray = Object.assign([], this.state.imgArray);
+      let imgData = Object.assign([], this.state.imgData);
       let files = evt.target.files;
       for(let i = 0, a = evt.target.files,c = a.length;i<c;i++) {
         let fr = new FileReader();
@@ -70,10 +71,12 @@ class AddPost extends Component {
           let result = this.result;
           
           img.onload = function() {
-            imgArray.push({width: img.width, height: img.height, name, type, img: result, file: files[i]})
+            imgArray.push({img: result, file: files[i]})
+            imgData.push({width: img.width, height: img.height, name, type, order: imgData.length});
             that.setState({
               imgArray,
-              files
+              imgData,
+              files: Object.assign([], files).reverse()
             })
           };
       
@@ -127,10 +130,17 @@ class AddPost extends Component {
 
     resetPage = () => {
         this.setState({
-            failed: false,
-            success: false,
-            caption: "",
-            img: null
+          caption: "",
+          img: null,
+          file: null,
+          name: null,
+          type: null,
+          isPrivate: false,
+          loading: false,
+          success: false,
+          failed: false,
+          imgArray: [],
+          files: null
         })
     }
 
