@@ -31,7 +31,6 @@ class AddPost extends Component {
         let fr = new FileReader();
         let that = this;
         fr.onload = function() { 
-          console.log(this);
             that.setState({
                 img: this.result
             })
@@ -53,7 +52,6 @@ class AddPost extends Component {
             name: evt.target.files[0].name,
             type: evt.target.files[0].type
         })
-        console.log(evt.target.files);
     }
 
     handleFileOnChangeV2 = (evt) => {
