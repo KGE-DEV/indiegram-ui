@@ -70,7 +70,7 @@ class EditPost extends Component {
                     <React.Fragment key={post.id}>
                         <hr />
                         <div className="edit-post__row">
-                            <img className="edit-post__image" src={post.post_image_url} alt="fuck the blind"/>
+                            <img className="edit-post__image" src={post.post_image_url.split(",")[0]} alt="fuck the blind"/>
                             <p className="edit-post__caption">{this.formatContent(post.post_content)}</p>
                             <div className="edit-post__actions-cont">
                                 <FontAwesomeIcon icon={faEdit} onClick={() => {this.handlesendEditPostClick(post)}} />

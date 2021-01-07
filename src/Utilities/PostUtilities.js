@@ -7,6 +7,7 @@ let paginatedPostsEndpoint = "/post/get/paginated/";
 let individualPostEndpoint = "/post/get/";
 let postCountEndpoint = "/post/count";
 let createPostEndpoint = "/post/v2/add";
+let createPostEndpointV3 = "/post/v3/add";
 let deletePostEndpoint = "/post/delete";
 let editPostEndpoint = "/post/edit";
 
@@ -36,6 +37,18 @@ export const createPost = (data, reportUploadProgress) => {
   formData.append("height", data.height);
   formData.append("width", data.width);
   return sendPost(API_URL + createPostEndpoint, formData, null, reportUploadProgress);
+}
+
+export const createPostV2 = (data, reportUploadProgress) => {
+  let formData = new FormData();
+  formData.append("caption", data.caption);
+  data.imgArray.forEach(img => {
+    formData.append("file", img.file);
+  })
+  formData.append("isPrivate", data.isPrivate);
+  formData.append("fileData", JSON.stringify(data.imgData));
+
+  return sendPost(API_URL + createPostEndpointV3, formData, null, reportUploadProgress);
 }
 
 export const deletePost = (postId) => {
