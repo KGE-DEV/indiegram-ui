@@ -70,7 +70,7 @@ class EditPost extends Component {
                     <React.Fragment key={post.id}>
                         <hr />
                         <div className="edit-post__row">
-                            <img className="edit-post__image" src={post.post_image_url.split(",")[0]} alt="fuck the blind"/>
+                            <img className="edit-post__image" src={post.post_image_url.split(",")[0]} alt="post"/>
                             <p className="edit-post__caption">{this.formatContent(post.post_content)}</p>
                             <div className="edit-post__actions-cont">
                                 <FontAwesomeIcon icon={faEdit} onClick={() => {this.handlesendEditPostClick(post)}} />
@@ -169,7 +169,7 @@ class EditPost extends Component {
                     <p className="edit-post__delete-header">Edit Post</p>
                     <div className="edit-post__delete-cont">
                         <div className="edit-post__row edit-post__row--delete">
-                            <img className="edit-post__image edit-post__image--delete" src={selectedPost.post_image_url} alt="fuck the blind"/>
+                            <img className="edit-post__image edit-post__image--delete" src={selectedPost.post_image_url} alt="post to delete"/>
                             <textarea className="add-post__caption edit-post__textarea" rows="6" value={this.formatContent(updatedPostContent)} onChange={(evt) => {this.handleCaptionUpdate(evt)}} />
                             <div className="edit-post__delete-actions">
                                 <button className="edit-post__btn edit-post__cancel-delete-btn" onClick={this.updatePost}>Update Post</button>
@@ -187,7 +187,7 @@ class EditPost extends Component {
                     <p className="edit-post__delete-header">Are you sure you want to delete this post?</p>
                     <div className="edit-post__delete-cont">
                         <div className="edit-post__row edit-post__row--delete">
-                            <img className="edit-post__image edit-post__image--delete" src={selectedPost.post_image_url} alt="fuck the blind"/>
+                            <img className="edit-post__image edit-post__image--delete" src={selectedPost.post_image_url} alt="post"/>
                             <p className="edit-post__caption edit-post__caption--delete">{this.formatContent(selectedPost.post_content)}</p>
                             <div className="edit-post__delete-actions">
                                 <button className="edit-post__btn edit-post__delete-btn" onClick={this.deletePost}>DELETE</button>
