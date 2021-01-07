@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faEdit, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { Carousel } from 'react-responsive-carousel';
 
 import Loading from "../Loading/Loading.js";
 import Pagination from "../Pagination/Pagination.js";
@@ -155,6 +156,25 @@ class EditPost extends Component {
         })
     }
 
+    buildEditPostImage = () => {
+      let selectedPostArray = this.state.selectedPost.post_image_url.split(",");
+      if (selectedPostArray.length === 1) {
+        return <img className="edit-post__image edit-post__image--delete" src={this.state.selectedPost.post_image_url} alt="post to edit"/>
+      } else {
+        return (
+          <Carousel showThumbs={false} showStatus={false}>
+            {selectedPostArray.map(url => {
+              return (
+                <div className="post__flex-cont" key={url}>
+                  <img className="post__image" src={url} alt="post to edit"/>
+                </div>
+              )
+            })}
+          </Carousel>
+        )
+      }
+    }
+
     render() {
         let {loading, page, deleteConfirmation, selectedPost, editingPost, updatedPostContent} = this.state;
         if(loading) {
@@ -169,7 +189,7 @@ class EditPost extends Component {
                     <p className="edit-post__delete-header">Edit Post</p>
                     <div className="edit-post__delete-cont">
                         <div className="edit-post__row edit-post__row--delete">
-                            <img className="edit-post__image edit-post__image--delete" src={selectedPost.post_image_url} alt="post to delete"/>
+                            {this.buildEditPostImage()}
                             <textarea className="add-post__caption edit-post__textarea" rows="6" value={this.formatContent(updatedPostContent)} onChange={(evt) => {this.handleCaptionUpdate(evt)}} />
                             <div className="edit-post__delete-actions">
                                 <button className="edit-post__btn edit-post__cancel-delete-btn" onClick={this.updatePost}>Update Post</button>
@@ -187,7 +207,7 @@ class EditPost extends Component {
                     <p className="edit-post__delete-header">Are you sure you want to delete this post?</p>
                     <div className="edit-post__delete-cont">
                         <div className="edit-post__row edit-post__row--delete">
-                            <img className="edit-post__image edit-post__image--delete" src={selectedPost.post_image_url} alt="post"/>
+                        {this.buildEditPostImage()}
                             <p className="edit-post__caption edit-post__caption--delete">{this.formatContent(selectedPost.post_content)}</p>
                             <div className="edit-post__delete-actions">
                                 <button className="edit-post__btn edit-post__delete-btn" onClick={this.deletePost}>DELETE</button>
