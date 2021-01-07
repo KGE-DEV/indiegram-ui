@@ -103,7 +103,7 @@ class Post extends Component {
       let {handleImageLoaded, postId} = this.props;
       if(individualPost) {
         return (
-          <Carousel>
+          <Carousel showThumbs={false} showStatus={false}>
             {urls.map(url => {
               return (
                 <div className="post__flex-cont" key={url}>
@@ -117,7 +117,7 @@ class Post extends Component {
 
       return (
         <Link to={"/post/" + postId} onClick={this.savePagePosition}>
-          <Carousel>
+          <Carousel showThumbs={false} showStatus={false}>
             {urls.map(url => {
               return (
                 <div className="post__flex-cont" key={url}>
