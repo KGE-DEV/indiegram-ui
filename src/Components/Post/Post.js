@@ -103,7 +103,7 @@ class Post extends Component {
       let {handleImageLoaded, postId} = this.props;
       if(individualPost) {
         return (
-          <Carousel showThumbs={false} showStatus={false}>
+          <Carousel showThumbs={false} showStatus={false} showIndicators={urls.length > 1}>
             {urls.map(url => {
               return (
                 <div className="post__flex-cont" key={url}>
@@ -117,7 +117,7 @@ class Post extends Component {
 
       return (
         <Link to={"/post/" + postId} onClick={this.savePagePosition}>
-          <Carousel showThumbs={false} showStatus={false}>
+          <Carousel showThumbs={false} showStatus={false} showIndicators={urls.length > 1}>
             {urls.map(url => {
               return (
                 <div className="post__flex-cont" key={url}>
@@ -126,17 +126,6 @@ class Post extends Component {
               )
             })}
           </Carousel>
-        </Link>
-      )
-    }
-
-    buildSingleImage = (url, postId, individualPost) => {
-      if(individualPost) {
-        return (<img className="post__image" src={url} alt="" onLoad={this.props.handleImageLoaded} />)
-      }
-      return (
-        <Link to={"/post/" + postId} onClick={this.savePagePosition}>
-          <img key={url} className="post__image" src={url} alt="" onLoad={this.props.handleImageLoaded}/>
         </Link>
       )
     }
@@ -161,9 +150,7 @@ class Post extends Component {
         post_image_url = this.parseImageUrls(post_image_url, individualPost);
         return (
             <div className={postClass} >
-              {post_image_url.length > 1
-              ? this.buildPostCarousel(post_image_url, individualPost):
-                this.buildSingleImage(post_image_url[0], postId, individualPost)}
+              {this.buildPostCarousel(post_image_url, individualPost)}
                 <div className="post__content-cont">
                     <p className="post__date">{this.formatDate(date_time_added)}</p>
                     <p className="post__content" dangerouslySetInnerHTML={{ __html: this.formatContent(post_content)}}></p>
