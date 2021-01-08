@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Loading from '../Loading/Loading.js';
 import {Link} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 import {createPostV2} from '../../Utilities/PostUtilities.js';
 
@@ -115,9 +117,17 @@ class AddPost extends Component {
     }
 
     buildImagePreviews = (imgArray) => {
-      return imgArray.map(img => {
-        return <img key={img.file.size} className="add-post__target" alt="" src={img.img}/>
-      })
+      return (
+        <Carousel showThumbs={false} showStatus={false} showIndicators={imgArray.length > 1}>
+          {imgArray.map(img => {
+            return (
+              <div className="post__flex-cont" key={img.file.size}>
+                <img className="post__image" src={img.img} alt=""/>
+              </div>
+            )
+          })}
+        </Carousel>
+      )
     }
 
     handlePrivateToggle = () => {
