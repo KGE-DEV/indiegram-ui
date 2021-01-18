@@ -16,8 +16,18 @@ export const getUserRole = () => {
   return sendGet(API_URL + getUserRoleEndpoint);
 }
 
-export const sendLoginRequest = (data) => {
-  return sendPost(API_URL + sendUserLoginEndpoint + "?email=" + data.email + "&password=" + data.password);
+export const sendLoginRequest = (loginRequest) => {
+  let data = JSON.stringify({
+    email: loginRequest.email,
+    password: loginRequest.password
+  })
+  let axiosConfig = {
+    headers: {
+        'Content-Type': 'application/json;charset=UTF-8'
+    },
+    withCredentials: true
+  };
+  return sendPost(API_URL + sendUserLoginEndpoint, data, axiosConfig);
 }
 
 export const sendResetPasswordRequest = (data) => {
