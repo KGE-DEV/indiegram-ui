@@ -4,7 +4,7 @@ import env from './env.js';
 
 let {API_URL} = env;
 let getUserRoleEndpoint = "/user/get/role";
-let sendUserLoginEndpoint = "/user/v2/login";
+let sendUserLoginEndpoint = "/user/login";
 let sendResetPasswordRequestEndpoint = "/user/password/request/reset";
 let sendResetPasswordEndpoint = "/user/password/reset";
 let getInvitesEndpoint = "/user/invites";
