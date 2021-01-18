@@ -24,7 +24,8 @@ export const sendLoginRequest = (loginRequest) => {
   let axiosConfig = {
     headers: {
         'Content-Type': 'application/json;charset=UTF-8'
-    }
+    },
+    withCredentials: true
   };
   return sendPost(API_URL + sendUserLoginEndpoint, data, axiosConfig);
 }
