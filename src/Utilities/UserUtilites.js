@@ -4,7 +4,7 @@ import env from './env.js';
 
 let {API_URL} = env;
 let getUserRoleEndpoint = "/user/get/role";
-let sendUserLoginEndpoint = "/user/v2/login";
+let sendUserLoginEndpoint = "/user/login";
 let sendResetPasswordRequestEndpoint = "/user/password/request/reset";
 let sendResetPasswordEndpoint = "/user/password/reset";
 let getInvitesEndpoint = "/user/invites";
@@ -16,17 +16,8 @@ export const getUserRole = () => {
   return sendGet(API_URL + getUserRoleEndpoint);
 }
 
-export const sendLoginRequest = (loginRequest) => {
-  let data = JSON.stringify({
-    email: loginRequest.email,
-    password: loginRequest.password
-  })
-  let axiosConfig = {
-    headers: {
-        'Content-Type': 'application/json;charset=UTF-8'
-    }
-  };
-  return sendPost(API_URL + sendUserLoginEndpoint, data, axiosConfig);
+export const sendLoginRequest = (data) => {
+  return sendPost(API_URL + sendUserLoginEndpoint + "?email=" + data.email + "&password=" + data.password);
 }
 
 export const sendResetPasswordRequest = (data) => {
