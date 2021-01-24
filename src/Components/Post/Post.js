@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
-import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
@@ -100,7 +99,7 @@ class Post extends Component {
     }
 
     buildPostCarousel = (urls, individualPost) => {
-      let {handleImageLoaded, postId} = this.props;
+      let {handleImageLoaded} = this.props;
       if(individualPost) {
         return (
           <Carousel showThumbs={false} showStatus={false} showIndicators={urls.length > 1}>
@@ -116,7 +115,6 @@ class Post extends Component {
       }
 
       return (
-        <Link to={"/post/" + postId} onClick={this.savePagePosition}>
           <Carousel showThumbs={false} showStatus={false} showIndicators={urls.length > 1}>
             {urls.map(url => {
               return (
@@ -126,7 +124,6 @@ class Post extends Component {
               )
             })}
           </Carousel>
-        </Link>
       )
     }
 
