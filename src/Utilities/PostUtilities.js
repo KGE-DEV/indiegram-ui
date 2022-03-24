@@ -2,11 +2,10 @@ import {sendGet, sendPost, sendDelete, sendPut} from './DataUtilities.js';
 
 import env from './env.js';
 
-let {API_URL} = env;
+let {API_URL, SITE_KEY} = env;
 let paginatedPostsEndpoint = "/post/get/paginated/";
 let individualPostEndpoint = "/post/get/";
 let postCountEndpoint = "/post/count";
-let createPostEndpoint = "/post/v2/add";
 let createPostEndpointV3 = "/post/v3/add";
 let deletePostEndpoint = "/post/delete";
 let editPostEndpoint = "/post/edit";
@@ -15,28 +14,15 @@ export const getPaginatedPosts = (page = 0) => {
     if(page === "") {
       page = 0;
     }
-    return sendGet(API_URL + paginatedPostsEndpoint + page)
+    return sendGet(API_URL + paginatedPostsEndpoint + page + "?siteKey=" + SITE_KEY)
 }
 
 export const getIndividualPost = (postId) => {
-  return sendGet(API_URL + individualPostEndpoint + postId)
+  return sendGet(API_URL + individualPostEndpoint + postId  + "?siteKey=" + SITE_KEY)
 }
 
 export const getPostCount = () => {
-  return sendGet(API_URL + postCountEndpoint);
-}
-
-export const createPost = (data, reportUploadProgress) => {
-  let formData = new FormData();
-  let name = data.name.split(' ').join('');
-  formData.append("caption", data.caption);
-  formData.append("file", data.file);
-  formData.append("name", name);
-  formData.append("type", data.type);
-  formData.append("isPrivate", data.isPrivate);
-  formData.append("height", data.height);
-  formData.append("width", data.width);
-  return sendPost(API_URL + createPostEndpoint, formData, null, reportUploadProgress);
+  return sendGet(API_URL + postCountEndpoint  + "?siteKey=" + SITE_KEY);
 }
 
 export const createPostV2 = (data, reportUploadProgress) => {
@@ -47,6 +33,7 @@ export const createPostV2 = (data, reportUploadProgress) => {
   })
   formData.append("isPrivate", data.isPrivate);
   formData.append("fileData", JSON.stringify(data.imgData));
+  formData.append("siteKey", SITE_KEY);
 
   return sendPost(API_URL + createPostEndpointV3, formData, null, reportUploadProgress);
 }
