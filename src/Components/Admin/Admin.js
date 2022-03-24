@@ -13,7 +13,6 @@ import "./Admin.scss";
 class Admin extends Component {
     render() {
         let { userRole } = this.props;
-        console.log({ userRole });
         if(userRole === "unauthorized" || userRole === "subscriber") {
             if(userRole !== "admin") {
                 return <Redirect to="/" />

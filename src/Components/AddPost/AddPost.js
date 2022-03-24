@@ -29,33 +29,6 @@ class AddPost extends Component {
          }
     }
 
-    handleFileOnChange = (evt) => {
-        let fr = new FileReader();
-        let that = this;
-        fr.onload = function() { 
-            that.setState({
-                img: this.result
-            })
-
-            var img = new Image();
-
-            img.onload = function() {
-                that.setState({
-                    width: img.width,
-                    height: img.height
-                })
-            };
-        
-            img.src = this.result;
-        };
-        fr.readAsDataURL(evt.target.files[0]);
-        this.setState({
-            file: evt.target.files[0],
-            name: evt.target.files[0].name,
-            type: evt.target.files[0].type
-        })
-    }
-
     handleFileOnChangeV2 = (evt) => {
       let imgArray = Object.assign([], this.state.imgArray);
       let imgData = Object.assign([], this.state.imgData);
@@ -194,9 +167,15 @@ class AddPost extends Component {
             <div className="container add-post">
                 <Link to="/admin" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <p className="login__header add-post__header">Add Post</p>
-                <label className="add-post__input-label add-post__button">
+                <label className="add-post__input-label add-post__button" htmlFor="post-image-input">
                     {img ? "Choose Another Image" : "Choose An Image"}
-                    <input type="file" accept="image/*" multiple className="add-post__input" onChange={this.handleFileOnChangeV2}/>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        className="add-post__input"
+                        onChange={this.handleFileOnChangeV2}
+                        id="post-image-input"
+                    />
                 </label>
                 <textarea className="add-post__caption" placeholder="Post Caption" rows="6" value={caption} onChange={this.handleTextAreaChange}></textarea>
                 <div className={"add-post__private-cont " + isPrivateClass} onClick={this.handlePrivateToggle}>
