@@ -14,7 +14,7 @@ jobs:
     - name: Use Node.js 12.x
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '16.5.0'
         
     - name: Build project and list output files
       run: npm i && yarn build && ls

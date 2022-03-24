@@ -1,95 +1,95 @@
-@import "src/_colors.scss";
+@import 'src/_colors.scss';
 
 .add-post {
-    font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 
-    &__header {
-        margin: 10px auto;
-    }
-    &__input {
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-        overflow: hidden;
-        position: absolute;
-        z-index: -1;
-    }
-    
-    &__input-label {
-        background-color: $darkPink;
-    }
-    
-    &__target {
-        margin: 10px auto;
-        display: block;
-        width: 100%;
-    }
-    
-    &__caption {
-        height: auto;
-        width: 100%;
-        border-radius: 0;
-        outline: none;
-        padding: 0 15px;
-        box-sizing: border-box;
-    }
-    
-    &__caption::placeholder {
-        text-align: center;
-        font-size: 20px;
-    }
-    
-    &__submit {
-        background-color: $blue;
-        position: fixed;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-    }
-    
-    &__success {
-        text-align: center;
-        font-size: 40px;
-        line-height: 1;
-        padding: 5px;
-    }
+  &__header {
+    margin: 10px auto;
+  }
+  &__input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
 
-    &__success--message {
-        text-align: center;
-        font-size: 20px;
-        line-height: 1;
-        padding: 5px 5px 10px;
-    }
+  &__input-label {
+    background-color: $darkPink;
+  }
 
-    &__add-another {
-        font-size: 40px;
-    }
+  &__target {
+    margin: 10px auto;
+    display: block;
+    width: 100%;
+  }
 
-    &__button {
-        font-size: 1.25em;
-        font-weight: 700;
-        color: white;
-        display: block;
-        width: 75%;
-        margin: 10px auto;
-        text-align: center;
-        padding: 10px;
-        border: none;
-        max-width: 300px;
-    }
+  &__caption {
+    height: auto;
+    width: 100%;
+    border-radius: 0;
+    outline: none;
+    padding: 0 15px;
+    box-sizing: border-box;
+  }
 
-    &__private-cont {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 40px;
-    }
+  &__caption::placeholder {
+    text-align: center;
+    font-size: 20px;
+  }
 
-    &__private-cont--yes &__private-indicator{
-        color: green; 
-    }
+  &__submit {
+    background-color: $blue;
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+  }
 
-    &__private-cont--no &__private-indicator{
-        color: red; 
-    }
+  &__success {
+    text-align: center;
+    font-size: 40px;
+    line-height: 1;
+    padding: 5px;
+  }
+
+  &__success--message {
+    text-align: center;
+    font-size: 20px;
+    line-height: 1;
+    padding: 5px 5px 10px;
+  }
+
+  &__add-another {
+    font-size: 40px;
+  }
+
+  &__button {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    display: block;
+    width: 75%;
+    margin: 10px auto;
+    text-align: center;
+    padding: 10px;
+    border: none;
+    max-width: 300px;
+  }
+
+  &__private-cont {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+  }
+
+  &__private-cont--yes &__private-indicator {
+    color: green;
+  }
+
+  &__private-cont--no &__private-indicator {
+    color: red;
+  }
 }
