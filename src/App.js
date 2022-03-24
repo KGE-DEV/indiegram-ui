@@ -60,7 +60,6 @@ class App extends Component {
 
   saveUserDataLocally = (userData) => {
     window.localStorage.userId = userData.id;
-    window.localStorage.userRole = userData.role;
   }
 
   render() {
