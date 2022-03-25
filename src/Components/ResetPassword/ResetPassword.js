@@ -144,7 +144,7 @@ class ResetPassword extends Component {
                 <form>
                     
                     
-                    <p className="reset-password__message">{isSettingPassword ? "Enter a password below to create your login for ElsieGram.com associated with " + email + "." : "Enter your new password below to change your login for ElsieGram.com associated with " + email + "."}</p>
+                    <p className="reset-password__message">{isSettingPassword ? "Enter a password below to create your login for IndieGram.com associated with " + email + "." : "Enter your new password below to change your login for IndieGram.com associated with " + email + "."}</p>
                     {error ? <p className="login__error">Please Try Again</p> : null}
                     <input type="hidden" placeholder="Email" className="login__input" value={email} onChange={this.handleEmailInputChange}/>
                     <input type="password" placeholder="Password" className="login__input" value={password} onChange={this.handlePasswordInputChange}/>

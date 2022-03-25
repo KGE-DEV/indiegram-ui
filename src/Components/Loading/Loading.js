@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import './Loading.scss';
-import loadingImg from './assets/img/loading.jpg';
+import loadingImg from './assets/img/loading.jpeg';
 
 class Loading extends Component {
 

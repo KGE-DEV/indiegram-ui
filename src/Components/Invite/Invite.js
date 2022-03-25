@@ -171,7 +171,7 @@ class Invite extends Component {
             <div className="container invite"> 
             <Link to="/" ><p className="feed__go-back"><FontAwesomeIcon icon={faChevronLeft} /> Back</p></Link>
                 <form id="jsInviteForm">
-                    <p className="invite__success-subheader">Enter your name and email below to request access to ElsieGram.com</p>
+                    <p className="invite__success-subheader">Enter your name and email below to request access to IndieGram.com</p>
                     <input type="text" placeholder="Name" className={"invite__input " + nameError} value={name} onChange={this.handleNameInputChange}/>
                     <input type="email" placeholder="Email" className={"invite__input " + emailError} value={email} onChange={this.handleEmailInputChange}/>
                     <button className="invite__submit" onClick={this.handleSubmitClick}>Submit</button>

@@ -15,7 +15,7 @@ class Terms extends Component {
         return (
             <div className="container terms">
                 <p className="terms__text">
-                    We ask that no photos of Elsie to be posted on any social media platform. We thank you for your agreement and understanding. 
+                    We ask that no photos of Indie to be posted on any social media platform. We thank you for your agreement and understanding. 
                 </p>
                 <p className="terms__text">
                     By clicking agree below, you accept these terms.
