@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimesCircle, faEdit, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { Carousel } from 'react-responsive-carousel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle, faEdit, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 import Loading from "../Loading/Loading.js";
 import Pagination from "../Pagination/Pagination.js";
+import EditingPostImage from './EditingPostImage.js';
 import {getPaginatedPosts, deletePost, sendEditPost} from "../../Utilities/PostUtilities.js";
 
 class EditPost extends Component {
@@ -56,8 +56,9 @@ class EditPost extends Component {
     }
 
     getPageNumber = () => {
-        let urlParts = window.location.href.split('/');
-        return urlParts[urlParts.length - 1];
+        const urlParts = window.location.href.split('/');
+        const pageNumber = urlParts[urlParts.length - 1];
+        return Number.isInteger(pageNumber) ? pageNumber : '';
     }
 
     buildPostsList = () => {
@@ -75,7 +76,7 @@ class EditPost extends Component {
                             <p className="edit-post__caption">{this.formatContent(post.post_content)}</p>
                             <div className="edit-post__actions-cont">
                                 <FontAwesomeIcon icon={faEdit} onClick={() => {this.handlesendEditPostClick(post)}} />
-                                <FontAwesomeIcon icon={faTimesCircle} onClick={() => {this.handleDeletePostClick(post)}}/>
+                                <FontAwesomeIcon className="fa-times-circle" icon={faTimesCircle} onClick={() => {this.handleDeletePostClick(post)}}/>
                             </div>
                         </div>
                     </React.Fragment>
@@ -157,22 +158,8 @@ class EditPost extends Component {
     }
 
     buildEditPostImage = () => {
-      let selectedPostArray = this.state.selectedPost.post_image_url.split(",");
-      if (selectedPostArray.length === 1) {
-        return <img className="edit-post__image edit-post__image--delete" src={this.state.selectedPost.post_image_url} alt="post to edit"/>
-      } else {
-        return (
-          <Carousel showThumbs={false} showStatus={false}>
-            {selectedPostArray.map(url => {
-              return (
-                <div className="post__flex-cont" key={url}>
-                  <img className="post__image" src={url} alt="post to edit"/>
-                </div>
-              )
-            })}
-          </Carousel>
-        )
-      }
+        let selectedPostArray = this.state.selectedPost.post_image_url.split(",");
+        return <EditingPostImage selectedPostArray={selectedPostArray} />
     }
 
     render() {
