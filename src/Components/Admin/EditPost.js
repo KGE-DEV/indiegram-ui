@@ -76,7 +76,7 @@ class EditPost extends Component {
                             <p className="edit-post__caption">{this.formatContent(post.post_content)}</p>
                             <div className="edit-post__actions-cont">
                                 <FontAwesomeIcon icon={faEdit} onClick={() => {this.handlesendEditPostClick(post)}} />
-                                <FontAwesomeIcon icon={faTimesCircle} onClick={() => {this.handleDeletePostClick(post)}}/>
+                                <FontAwesomeIcon className="fa-times-circle" icon={faTimesCircle} onClick={() => {this.handleDeletePostClick(post)}}/>
                             </div>
                         </div>
                     </React.Fragment>
