@@ -56,8 +56,9 @@ class EditPost extends Component {
     }
 
     getPageNumber = () => {
-        let urlParts = window.location.href.split('/');
-        return urlParts[urlParts.length - 1];
+        const urlParts = window.location.href.split('/');
+        const pageNumber = urlParts[urlParts.length - 1];
+        return Number.isInteger(pageNumber) ? pageNumber : '';
     }
 
     buildPostsList = () => {
