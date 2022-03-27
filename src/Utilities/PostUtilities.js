@@ -9,6 +9,7 @@ let postCountEndpoint = "/post/count";
 let createPostEndpointV3 = "/post/v3/add";
 let deletePostEndpoint = "/post/delete";
 let editPostEndpoint = "/post/edit";
+const rotateImageEndpoint = "/post/rotate-image";
 
 export const getPaginatedPosts = (page = 0) => {
     if(page === "") {
@@ -44,4 +45,8 @@ export const deletePost = (postId) => {
 
 export const sendEditPost = (post) => {
   return sendPut(API_URL + editPostEndpoint, post);
+}
+
+export const sendRotateImage = (imgUrl, rotation) => {
+  return sendPut(API_URL + rotateImageEndpoint, { imgUrl, rotation });
 }
