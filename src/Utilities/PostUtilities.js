@@ -48,5 +48,5 @@ export const sendEditPost = (post) => {
 }
 
 export const sendRotateImage = (imgUrl, rotation) => {
-  return sendPut(API_URL + rotateImageEndpoint, { imgUrl, rotation });
+  return sendPost(API_URL + rotateImageEndpoint, { imgUrl, rotation }, null);
 }
