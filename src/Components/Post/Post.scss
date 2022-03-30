@@ -1,53 +1,76 @@
+@import 'src/_colors.scss';
+
 .post {
-    border-radius: 5px;
-    border: 1px solid #dbdbdb;
-    border: 1px solid rgba(var(--b6a,219,219,219),1);
-    margin: 0 0 20px;
-    background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #dbdbdb;
+  border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  margin: 0 0 20px;
+  background-color: #fff;
+  width: 100%;
+  overflow: hidden;
+
+  &__image {
+    max-width: 500px;
     width: 100%;
-    overflow: hidden;
+  }
 
-    &__image {
-        max-width: 500px;
-        width: 100%;
-    }
+  &__content-cont {
+    padding: 10px;
+    position: relative;
+    padding-bottom: 45px;
+  }
 
-    &__content-cont {
-        padding: 10px;
-        position: relative;
-        padding-bottom: 45px;
-    }
+  &__content,
+  &__date {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
 
-    &__content, &__date {
-        margin: 0;
-        font-family: 'Montserrat', sans-serif;
-    }
+  &__content,
+  &__content:focus {
+    margin: 5px 0 10px;
+    font-weight: 300;
+    line-height: 1.2;
+    width: 100%;
+    border: none;
+    resize: none;
+    outline: none;
+  }
 
-    &__content, &__content:focus {
-        margin: 5px 0 10px;
-        font-weight: 300;
-        line-height: 1.2;
-        width: 100%;
-        border: none;
-        resize: none;
-        outline: none;
-    }
+  &__go-back {
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+  }
 
+  &__flex-cont {
+    display: flex;
+    align-items: center;
+    height: 97%;
+  }
 
-    &__go-back {
-        font-family: 'Montserrat', sans-serif;
-        cursor: pointer;
-    }
+  &__flex-cont-edit {
+    min-height: 550px;
+  }
 
-    &__flex-cont {
-      display: flex;
-      align-items: center;
-      height: 97%;
-    }
+  &__rotate-btn-cont {
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 300px;
+    margin: 0 auto;
+  }
 
-    hr {
-        border-top: grey 1px;
-    }
+  &__rotate-btn {
+    background-color: $blue;
+    border: white;
+  }
+
+  &____rotate-btn:disabled {
+    background-color: $gray;
+  }
+
+  hr {
+    border-top: grey 1px;
+  }
 }
 
 .thumbs-wrapper {
@@ -56,12 +79,12 @@
 
 .carousel-status {
   font-family: 'Montserrat', sans-serif;
-  color: #000!important;
-  text-shadow: none!important;
+  color: #000 !important;
+  text-shadow: none !important;
 }
 
 .carousel .slide {
-  background-color: #fff!important;
+  background-color: #fff !important;
 }
 .carousel .control-dots {
   bottom: 10px !important;
