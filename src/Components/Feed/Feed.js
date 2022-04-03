@@ -4,12 +4,14 @@ import {Redirect, Link} from 'react-router-dom';
 import Post from '../Post/Post.js';
 import Pagination from '../Pagination/Pagination.js';
 import Loading from '../Loading/Loading.js';
+import Modal from '../Modal/Modal.js';
 import {getPaginatedPosts} from '../../Utilities/PostUtilities.js';
 import {sendUserEvent, PAGE_VIEWED_EVENT} from '../../Utilities/EventUtilities.js';
 import {PAGE_POSITION, getWithExpiry} from '../../Utilities/LocalStorageUtilities.js';
 
 import './Feed.scss';
 import adminButton from './assets/img/admin-button.png';
+import IndieModal from '../Modal/Content/IndieModal.js';
 
 class Feed extends Component {
 
@@ -20,7 +22,8 @@ class Feed extends Component {
             posts: [],
             imagesLoaded: 0,
             postClass: "post hidden",
-            loading: false
+            loading: false,
+            showModal: true
         }
     }
 
@@ -103,8 +106,12 @@ class Feed extends Component {
         }
     }
 
+    handleIndieModalClose = () => {
+        this.setState({ showModal: false });
+    }
+
     render() {
-        let {posts, loading} = this.state;
+        let {posts, loading, showModal} = this.state;
         let {userRole, page} = this.props;
         
         if(userRole === "unauthorized") {
@@ -112,6 +119,9 @@ class Feed extends Component {
         }
         if(posts.length === 0) {
             return <Loading />
+        }
+        if (!localStorage.indie && showModal) {
+            return <Modal><IndieModal handleClose={this.handleIndieModalClose}/></Modal>
         }
         return (
             <section className="feed container">
