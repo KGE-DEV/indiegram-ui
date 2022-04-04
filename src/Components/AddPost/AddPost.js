@@ -175,6 +175,7 @@ class AddPost extends Component {
                         className="add-post__input"
                         onChange={this.handleFileOnChangeV2}
                         id="post-image-input"
+                        multiple
                     />
                 </label>
                 <textarea className="add-post__caption" placeholder="Post Caption" rows="6" value={caption} onChange={this.handleTextAreaChange}></textarea>
