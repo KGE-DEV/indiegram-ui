@@ -34,7 +34,7 @@ export const createPostV2 = (data, reportUploadProgress) => {
   })
   formData.append("isPrivate", data.isPrivate);
   formData.append("fileData", JSON.stringify(data.imgData));
-  formData.append("siteKey", SITE_KEY);
+  formData.append("siteKey", data.isCrossPost ? 'cp' : SITE_KEY);
 
   return sendPost(API_URL + createPostEndpointV3, formData, null, reportUploadProgress);
 }

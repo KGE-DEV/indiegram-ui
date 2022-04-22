@@ -25,7 +25,8 @@ class AddPost extends Component {
              success: false,
              failed: false,
              imgArray: [],
-             files: null
+             files: null,
+             isCrossPost: false
          }
     }
 
@@ -109,6 +110,12 @@ class AddPost extends Component {
         })
     }
 
+    handleCrossPostToggle = () => {
+        this.setState({
+            isCrossPost: !this.state.isCrossPost
+        })
+    }
+
     resetPage = () => {
         this.setState({
           caption: "",
@@ -139,10 +146,13 @@ class AddPost extends Component {
     }
 
     render() {        
-        let {loading, img, caption, isPrivate, success, failed, uploadProgress, imgArray} = this.state;
+        const {loading, img, caption, isPrivate, success, failed, uploadProgress, imgArray, isCrossPost} = this.state;
 
-        let isPrivateLabel = isPrivate ? "Yes" : "No";
-        let isPrivateClass = isPrivate ? "add-post__private-cont--yes" : "add-post__private-cont--no";
+        const isPrivateLabel = isPrivate ? "Yes" : "No";
+        const isPrivateClass = isPrivate ? "add-post__private-cont--yes" : "add-post__private-cont--no";
+
+        const isCrossPostLabel = isCrossPost ? "Yes" : "No";
+        const isCrossPostClass = isCrossPost ? "add-post__private-cont--yes" : "add-post__private-cont--no";
         if(loading) {
             return <Loading uploadProgress={uploadProgress}/>;
         }
@@ -182,6 +192,10 @@ class AddPost extends Component {
                 <div className={"add-post__private-cont " + isPrivateClass} onClick={this.handlePrivateToggle}>
                     <label className="add-post__private-label">Make this post private?</label>
                     <p className="add-post__private-indicator">{isPrivateLabel}</p>
+                </div>
+                <div className={"add-post__private-cont " + isCrossPostClass} onClick={this.handleCrossPostToggle}>
+                    <label className="add-post__private-label">Make this a cross post?</label>
+                    <p className="add-post__private-indicator">{isCrossPostLabel}</p>
                 </div>
                 {imgArray.length > 0 ? 
                     this.buildImagePreviews(imgArray)
