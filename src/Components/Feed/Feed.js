@@ -20,7 +20,7 @@ class Feed extends Component {
             posts: [],
             imagesLoaded: 0,
             postClass: "post hidden",
-            loading: false
+            loading: false,
         }
     }
 
@@ -113,6 +113,7 @@ class Feed extends Component {
         if(posts.length === 0) {
             return <Loading />
         }
+
         return (
             <section className="feed container">
                 {loading ? <Loading /> : null}

@@ -6,7 +6,7 @@ import { faTimesCircle, faEdit, faChevronLeft } from '@fortawesome/free-solid-sv
 import Loading from "../Loading/Loading.js";
 import Pagination from "../Pagination/Pagination.js";
 import EditingPostImage from './EditingPostImage.js';
-import {getPaginatedPosts, deletePost, sendEditPost} from "../../Utilities/PostUtilities.js";
+import {getPaginatedPosts, deletePost, sendEditPost, sendRotateImage} from "../../Utilities/PostUtilities.js";
 
 class EditPost extends Component {
     constructor(props) {
@@ -20,7 +20,8 @@ class EditPost extends Component {
             postIdToDelete: null,
             editingPost: false,
             selectedPost: null,
-            updatedPostContent: null
+            updatedPostContent: null,
+            imageRotation: {}
         }
     }
 
@@ -75,7 +76,7 @@ class EditPost extends Component {
                             <img className="edit-post__image" src={post.post_image_url.split(",")[0]} alt="post"/>
                             <p className="edit-post__caption">{this.formatContent(post.post_content)}</p>
                             <div className="edit-post__actions-cont">
-                                <FontAwesomeIcon icon={faEdit} onClick={() => {this.handlesendEditPostClick(post)}} />
+                                <FontAwesomeIcon icon={faEdit} onClick={() => {this.handleSendEditPostClick(post)}} />
                                 <FontAwesomeIcon className="fa-times-circle" icon={faTimesCircle} onClick={() => {this.handleDeletePostClick(post)}}/>
                             </div>
                         </div>
@@ -93,7 +94,7 @@ class EditPost extends Component {
         }
     }
 
-    handlesendEditPostClick = (post) => {
+    handleSendEditPostClick = (post) => {
         this.setState({
             editingPost: true,
             selectedPost: post,
@@ -108,18 +109,19 @@ class EditPost extends Component {
     }
 
     updatePost = () => {
-        let {selectedPost, updatedPostContent} = this.state;
+        let {selectedPost, updatedPostContent, imageRotation} = this.state;
         this.setState({
             loading: true
         });
-        Promise.resolve(sendEditPost({postId: selectedPost.id, postContent: updatedPostContent}))
-        .then(data => {
-            if(data.error) {
-                // window.location.href = "/";
-            } else {
-                this.getPosts();
-                this.cancelUpdate();
-            }
+        const callsToResolve = [sendEditPost({ postId: selectedPost.id, postContent: updatedPostContent })];
+        const imageRotationKeys = Object.keys(imageRotation);
+        imageRotationKeys.forEach(imgUrl => {
+            callsToResolve.push(sendRotateImage(imgUrl, imageRotation[imgUrl]))
+        })
+        Promise.all(callsToResolve)
+        .then(() => {
+            this.getPosts();
+            this.cancelUpdate();
         })
     }
 
@@ -153,17 +155,27 @@ class EditPost extends Component {
             postIdToDelete: null,
             selectedPost: null,
             updatedPostContent: null,
-            editingPost: false
+            editingPost: false,
+            imageRotation: {}
+        })
+    }
+
+    handleImageRotationStateUpdate = (imgUrl, rotation) => {
+        const updatedImageRotation = { ...this.state.imageRotation };
+        updatedImageRotation[imgUrl] = rotation;
+        this.setState({
+            imageRotation: updatedImageRotation
         })
     }
 
     buildEditPostImage = () => {
         let selectedPostArray = this.state.selectedPost.post_image_url.split(",");
-        return <EditingPostImage selectedPostArray={selectedPostArray} />
+        return <EditingPostImage selectedPostArray={selectedPostArray} imageRotation={this.state.imageRotation} handleImageRotationStateUpdate={this.handleImageRotationStateUpdate} />
     }
 
     render() {
-        let {loading, page, deleteConfirmation, selectedPost, editingPost, updatedPostContent} = this.state;
+        let { loading, page, deleteConfirmation, selectedPost, editingPost, updatedPostContent } = this.state;
+
         if(loading) {
             return (
                 <Loading />

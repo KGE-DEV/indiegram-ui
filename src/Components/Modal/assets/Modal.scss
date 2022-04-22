@@ -1,0 +1,60 @@
+@import 'src/_colors.scss';
+
+.modal-cont {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $pink;
+  z-index: 2;
+  display: flex;
+  justify-content: space-around;
+}
+
+.modal {
+  font-family: 'Montserrat', sans-serif;
+  width: 95%;
+  max-width: 400px;
+  border: 1px $darkPink solid;
+  padding: 5%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  background: white;
+  display: flex;
+  align-items: center;
+  min-height: 50%;
+  max-height: 450px;
+  border-radius: 25px;
+  top: 80px;
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+}
+
+// Indie Modal
+
+.indie {
+  text-align: center;
+  &__title {
+    text-align: center;
+    width: 100%;
+  }
+
+  &__img {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  &__link {
+    color: $darkPink;
+  }
+}
