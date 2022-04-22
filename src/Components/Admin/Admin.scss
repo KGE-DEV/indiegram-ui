@@ -1,3 +1,5 @@
+@import "src/_colors.scss";
+
 .admin-menu {
   font-family: 'Montserrat', sans-serif;
   &__link {
@@ -180,10 +182,10 @@
 }
 
 .edit-post {
+  font-family: 'Montserrat', sans-serif;
   &__row {
     display: flex;
     align-items: center;
-    height: 50px;
     margin: 0 0 15px;
   }
   &__image {
@@ -230,6 +232,10 @@
     width: 75%;
   }
 
+  &__delete {
+    font-family: 'Montserrat', sans-serif;
+  }
+
   &__delete-header {
     font-size: 24px;
     text-align: center;
@@ -238,24 +244,30 @@
 
   &__delete-actions {
     margin: 20px auto;
+    display: flex;
   }
 
   &__btn {
     width: 50%;
     padding: 15px;
-    color: #fff;
+    color: #000;
     border-radius: 5px;
+    border: none;
+    margin: 0 5px;
+    box-sizing: border-box;
   }
 
   &__cancel-delete-btn {
-    background-color: green;
+    background-color: $blue;
   }
 
   &__delete-btn {
-    background-color: red;
+    background-color: $darkPink;
   }
 
   &__textarea {
     margin: 15px 0 0;
+    border-radius: 5px;
+    border: solid 1px $gray;
   }
 }

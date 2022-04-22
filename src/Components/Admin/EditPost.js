@@ -75,7 +75,7 @@ class EditPost extends Component {
                             <img className="edit-post__image" src={post.post_image_url.split(",")[0]} alt="post"/>
                             <p className="edit-post__caption">{this.formatContent(post.post_content)}</p>
                             <div className="edit-post__actions-cont">
-                                <FontAwesomeIcon icon={faEdit} onClick={() => {this.handlesendEditPostClick(post)}} />
+                                <FontAwesomeIcon icon={faEdit} onClick={() => {this.handleSendEditPostClick(post)}} />
                                 <FontAwesomeIcon className="fa-times-circle" icon={faTimesCircle} onClick={() => {this.handleDeletePostClick(post)}}/>
                             </div>
                         </div>
@@ -93,7 +93,7 @@ class EditPost extends Component {
         }
     }
 
-    handlesendEditPostClick = (post) => {
+    handleSendEditPostClick = (post) => {
         this.setState({
             editingPost: true,
             selectedPost: post,
@@ -112,14 +112,11 @@ class EditPost extends Component {
         this.setState({
             loading: true
         });
+        // TODO: create array of calls to resolve
         Promise.resolve(sendEditPost({postId: selectedPost.id, postContent: updatedPostContent}))
-        .then(data => {
-            if(data.error) {
-                // window.location.href = "/";
-            } else {
-                this.getPosts();
-                this.cancelUpdate();
-            }
+        .then(() => {
+            this.getPosts();
+            this.cancelUpdate();
         })
     }
 
